@@ -1,0 +1,30 @@
+<div class="league">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <td><%= I18n.t("messages.leagues.show.table_1") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_2") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_3") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_5") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_7") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_8") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_9") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for league_team in @league_teams do %>
+          <tr class="<%= league_team[:style] %>">
+            <td><%= league_team[:data].team.name %></td>
+            <td><%= league_team[:data].gp %></td>
+            <td><%= league_team[:data].w %></td>
+            <td><%= league_team[:data].t %></td>
+            <td><%= league_team[:data].l %></td>
+            <td><%= league_team[:data].gf %>:<%= league_team[:data].ga %></td>
+            <td><%= league_team[:data].pts %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+development:
+    adapter: postgresql
+    database: footballManager-dev
+    username: postgres
+    password: root
+    host: localhost
+    encoding: UTF8
+    port: 5454
+
+test:
+    adapter: postgresql
+    database: footballManager-tst
+    username: postgres
+    password: root
+    host: localhost
+    encoding: UTF8
+    port: 5454
+
+production:
+  adapter: postgresql
+  host: localhost
+  username: user
+  database: app-dev

@@ -1,0 +1,169 @@
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%#*TODO messages%>
+      <a id="counter" href="http://pocitadlo.abz.cz/" title="počítadlo přístupů: pocitadlo.abz.cz">
+        <img src="http://pocitadlo.abz.cz/aip.php?tp=bt" alt="počítadlo" border="0" />
+      </a>
+      
+      <a class="brand" href="/"><%= APPLICATION_NAME %></a>
+      <ul class="nav">
+        <li>
+          <div class="btn-toolbar">
+            <% if current_user %>
+              <%# MANAZER %>
+              <div class="btn-group">
+                <div class="btn">
+                  <span class="icon-user"></span>
+                  <%= current_user.username %>
+                </div>
+                
+                <div class="btn dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                </div>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <%= link_to I18n.t("messages.menu.manager_edit"), "/" %>
+                    <%# TODO edit manager%>
+                  </li>
+                  <li>
+                    <%= link_to I18n.t("messages.menu.manager_history"), "/" %>
+                    <%# TODO history of manager%>
+                  </li>
+                </ul>
+              </div>
+            
+              <%# TYMY %>
+              <div class="btn-group">
+                <% if current_user.has_one_team %>
+                  <div class="btn">
+                    <span class="icon-user"></span>
+                    <%= current_user.teams.first.name %>
+                  </div>
+                
+                  <div class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </div>
+                
+                  <%= render :partial => 'templates/menu_team', :locals => {:team => current_user.teams.first} %>
+                <% else %>
+                  <div class="btn">
+                    <span class=""></span>
+                    <%= I18n.t("messages.menu.teams") %>
+                  </div>
+
+                  <div class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </div>
+                
+                  <ul class="dropdown-menu">
+                    <% for team in current_user.teams.order(:name) %>
+                      <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#"><%= team.name %></a>
+                        <%= render :partial => 'templates/menu_team', :locals => {:team => team} %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            
+              <%# SOUTEZE TYMU %>
+              <div class="btn-group">
+                <% @leagues = League.by_user_and_season(current_user) %>
+                <% if @leagues.count == 1 %>
+                  <div class="btn">
+                    <span class="icon-user"></span>
+                    <%= @leagues.first.shortcut %>
+                  </div>
+                
+                  <div class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </div>
+                
+                  <%= render :partial => 'templates/menu_league', :locals => {:league => @leagues.first} %>
+                <% else %>
+                  <div class="btn">
+                    <span class=""></span>
+                    <%= I18n.t("messages.menu.leagues_of_teams") %>
+                  </div>
+
+                  <div class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </div>
+                
+                  <ul class="dropdown-menu">
+                    <% for league in @leagues.order(:name) %>
+                      <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#"><%= league.shortcut %></a>
+                        <%= render :partial => 'templates/menu_league', :locals => {:league => league} %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            
+              <%# VSECHNY SOUTEZE %>
+              <div class="btn-group">
+                <div class="btn">
+                  <span class="icon-user"></span>
+                  <%= I18n.t("messages.menu.all_leagues") %>
+                </div>
+
+                <div class="btn dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                </div>
+
+                <ul class="dropdown-menu">
+                  <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#"><%= I18n.t("messages.menu.all_leagues_international") %></a>
+                    
+                    <ul class="dropdown-menu">
+                      <% for league in League.where(:country_id => nil) %>
+                        <li class="dropdown-submenu">
+                          <a tabindex="-1" href="#"><%= I18n.t("leagues." + league.shortcut) %></a>
+                          <%= render :partial => 'templates/menu_league', :locals => {:league => league} %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                  
+                  <% for country in Country.order(:shortcut) %>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#"><%= I18n.t("countries." + country.shortcut) %></a>
+                      
+                      <ul class="dropdown-menu">
+                        <% for league in country.leagues %>
+                          <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#"><%= I18n.t("leagues." + league.shortcut) %></a>
+                            <%= render :partial => 'templates/menu_league', :locals => {:league => league} %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% else %>
+              <%#*TODO menu pro neprihlaseneho%>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+      <div class="pull-right">
+        <% if current_user %>
+          <%= link_to I18n.t("messages.menu.logout"), logout_url, :class => "btn" %>
+        <% else %>
+          <%= link_to I18n.t("messages.menu.register"), register_url, :class => "btn" %>
+          <div class="btn-group">
+            <a class="btn" href="#login" role="button" data-toggle="modal">
+              <%= I18n.t("messages.menu.login") %>
+            </a>
+            <%= link_to image_tag(asset_path("facebook_icon.jpg")), auth_at_provider_path(:provider => :facebook), :class => "btn", :title => I18n.t("messages.menu.login_via_facebook") %>
+          </div>
+        <% end %>
+      </div>
+      <div class="nav-collapse collapse"><!-- hidden when 940px or less --></div>
+    </div>
+  </div>
+</div>

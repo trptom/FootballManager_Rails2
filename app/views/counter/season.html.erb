@@ -1,0 +1,14 @@
+<script type="text/javascript" src="<%= asset_path("page/counter.js") %>"></script>
+<script type="text/javascript" src="<%= asset_path("page/counter_season.js") %>"></script>
+
+<div>
+  <div class="leagues-draw">
+    <% for league in League.all %>
+      <div class="league">
+        <div class="btn action" onclick="CounterSeason.updateLeagueTeams(<%= league.id %>, this);">Upravit týmy</div>
+        <div class="btn action" onclick="CounterSeason.drawLeague(<%= league.id %>, this);">Rozlosovat</div>
+        <%= I18n.t("leagues." + league.shortcut) %>
+      </div>
+    <% end %>
+  </div>
+</div>

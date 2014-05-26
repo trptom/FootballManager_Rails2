@@ -1,0 +1,30 @@
+<%= form_tag login_url, :method => :post do %>
+  <div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">
+        <%= I18n.t("messages.login_form.title") %>
+      </h3>
+    </div>
+    <div class="modal-body">
+      <div class="controls controls-row">
+        <div>
+          <div class="span2 offset1">
+              <%= I18n.t("messages.login_form.username") %>
+          </div>
+          <%= text_field_tag :username %>
+        </div>
+        <div>
+          <div class="span2 offset1">
+              <%= I18n.t("messages.login_form.password") %>
+          </div>
+          <%= password_field_tag :password %>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to I18n.t("messages.login_form.lost_password"), "/users/reset_password", :class => "disabled pull-left", :tabindex => "-1" %>
+      <%= submit_tag I18n.t("messages.login_form.login"), :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

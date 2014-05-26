@@ -1,0 +1,182 @@
+/*******************************************************************************
+ * GLOBALNI
+ ******************************************************************************/
+
+.undisplayed {
+    display: none;
+}
+
+/*******************************************************************************
+ * LAYOUT
+ ******************************************************************************/
+
+html, body {
+    height: 100%;
+    overflow: auto;
+}
+
+body {
+    background-color: #99cc00;
+    background-image: url('../textures/grass.jpg');
+    background-repeat: repeat;
+}
+
+body > div#content {
+    position: fixed;
+    top: 60px;
+    bottom: 20px;
+    right: 0px;
+    left: 0px;
+}
+
+body > div#content > .container {
+    position: static;
+    height: 100%;
+}
+
+body > div#content > .container > .well {
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.6);
+/*    background-color: #8ce2a9;*/
+    height: 100%;
+    overflow: hidden;
+}
+
+body > div#content > .container > .well > #content-data {
+    position: relative;
+    width: auto;
+    height: 100%;
+    overflow: auto;
+}
+
+#page {
+    padding: 10px;
+    position: relative;
+}
+
+body > div#messages {
+    position: fixed;
+    right: 10px;
+    top: 50px;
+    bottom: 0px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+body > div#messages > .message {
+    position: relative;
+    width: 200px;
+    border-radius: 10px;
+    border: solid 1px;
+    font-size: 80%;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+}
+
+body > div#messages > .message > .content {
+    padding: 5px;
+    padding-right: 25px;
+    cursor: default;
+}
+
+body > div#messages > .message > .close-but {
+    cursor: pointer;
+    position: absolute;
+    border-radius: 10px;
+    right: 2px;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border: solid 1px;
+    text-align: center;
+    z-index: 1001;
+    background-color: transparent;
+}
+
+body > div#messages > .message.error {
+    background-color: rgba(255, 150, 150, 0.8);
+}
+
+body > div#messages > .message.warning {
+    background-color: rgba(255, 255, 150, 0.8);
+}
+
+body > div#messages > .message.success {
+    background-color: rgba(150, 255, 150, 0.8);
+}
+
+body > div#messages > .message.error,
+body > div#messages > .message.error > .close-but {
+    border-color: #aa0000;
+}
+
+body > div#messages > .message.warning,
+body > div#messages > .message.warning > .close-but {
+    border-color: #aaaa00;
+}
+
+body > div#messages > .message.success,
+body > div#messages > .message.success > .close-but {
+    border-color: #00aa00;
+}
+
+body > div#messages > .message.error > .close-but:hover {
+    background-color: #aa0000;
+}
+
+body > div#messages > .message.warning > .close-but:hover {
+    background-color: #aaaa00;
+}
+
+body > div#messages > .message.success > .close-but:hover {
+    background-color: #00aa00;
+}
+
+body > .navbar {
+    z-index: 998;
+}
+
+body > #locker {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('../icons/please-wait.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: wait;
+    display: none;
+}
+
+/*******************************************************************************
+ * LIST ON INDEX
+ ******************************************************************************/
+
+#page.index > table {
+    border: solid #000000 1px;
+    width: 100%;
+}
+
+#page.index > table td {
+    padding: 3px 5px 3px 5px;
+}
+
+#page.index > table > thead td {
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+#page.index > table > thead > tr:last-of-type > td {
+    border-bottom: solid #000000 1px;
+}
+
+#page.index > table > tfoot td {
+    background-color: #ffffff;
+}
+
+#page.index > table > tfoot > tr:first-of-type > td {
+    border-top: solid #000000 1px;
+}

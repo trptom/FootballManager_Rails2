@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      <% if !(I18n.t "messages.titles." + params[:controller] + "." + params[:action]).starts_with?("translation missing: ") %>
+        <%= TITLE_PREFIX %><%= I18n.t "messages.titles." + params[:controller] + "." + params[:action], @title_params ? @title_params : nil %>
+      <% else %>
+        <%= DEFAULT_TITLE %>
+      <% end %>
+    </title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= params[:controller] %> <%= params[:action] %>">
+    <%= render "templates/menu" %>
+    <%= render "templates/login_form" %>
+    
+    <div id="content">
+      <div class="container">
+        <div class="well">
+          <div id="content-data">
+            <%= render "templates/notes" %>
+            <%= render "templates/errors" %>
+            
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

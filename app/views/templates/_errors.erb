@@ -1,0 +1,13 @@
+<span id="errors-enum">
+  <% if @errors && @errors.any? %>
+    <% @errors.each do |msg| %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong><%= I18n.t("messages.base.error") %></strong>
+        <% @errors[msg].each do |content| %>
+          <br /><%= content %>
+        <%  end %>
+      </div>
+    <% end %>
+  <% end %>
+</span>
