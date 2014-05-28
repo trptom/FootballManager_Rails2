@@ -15,7 +15,7 @@
       <tbody>
         <% for league_team in @league_teams do %>
           <tr class="<%= league_team[:style] %>">
-            <td><%= league_team[:data].team.name %></td>
+            <td><%= link_to league_team[:data].team.name, league_team[:data].team %></td>
             <td><%= league_team[:data].gp %></td>
             <td><%= league_team[:data].w %></td>
             <td><%= league_team[:data].t %></td>
