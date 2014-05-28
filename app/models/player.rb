@@ -1,7 +1,9 @@
 class Player < ActiveRecord::Base
   attr_accessible :age, :aggresivness, :att, :deff, :first_name, :foot, :gk,
     :last_name, :mid, :passing, :potential, :pseudonym, :quality,
-    :second_name, :shooting, :speed, :stamina, :icon
+    :second_name, :shooting, :speed, :stamina, :icon,
+    :country, :country_id,
+    :team, :team_id
   
   belongs_to :country
   belongs_to :team

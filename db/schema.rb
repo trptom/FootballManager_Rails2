@@ -105,22 +105,23 @@ ActiveRecord::Schema.define(:version => 20140527132918) do
   add_index "games", ["team_home_id"], :name => "index_games_on_team_home_id"
 
   create_table "league_teams", :force => true do |t|
-    t.integer  "league_id",                 :null => false
-    t.integer  "team_id",                   :null => false
-    t.integer  "season",                    :null => false
-    t.integer  "gp",         :default => 0, :null => false
-    t.integer  "w",          :default => 0, :null => false
-    t.integer  "wot",        :default => 0, :null => false
-    t.integer  "t",          :default => 0, :null => false
-    t.integer  "lot",        :default => 0, :null => false
-    t.integer  "l",          :default => 0, :null => false
-    t.integer  "gf",         :default => 0, :null => false
-    t.integer  "ga",         :default => 0, :null => false
-    t.integer  "gdiff",      :default => 0, :null => false
-    t.integer  "pts",        :default => 0, :null => false
+    t.integer  "league_id",                         :null => false
+    t.integer  "team_id",                           :null => false
+    t.integer  "season",                            :null => false
+    t.integer  "gp",              :default => 0,    :null => false
+    t.integer  "w",               :default => 0,    :null => false
+    t.integer  "wot",             :default => 0,    :null => false
+    t.integer  "t",               :default => 0,    :null => false
+    t.integer  "lot",             :default => 0,    :null => false
+    t.integer  "l",               :default => 0,    :null => false
+    t.integer  "gf",              :default => 0,    :null => false
+    t.integer  "ga",              :default => 0,    :null => false
+    t.integer  "gdiff",           :default => 0,    :null => false
+    t.integer  "pts",             :default => 0,    :null => false
+    t.boolean  "stays_in_league", :default => true, :null => false
     t.text     "note"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "league_teams", ["league_id"], :name => "index_league_teams_on_league_id"
@@ -148,6 +149,24 @@ ActiveRecord::Schema.define(:version => 20140527132918) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "player_names", :force => true do |t|
+    t.string   "name_str"
+    t.boolean  "first_name",  :default => false
+    t.boolean  "second_name", :default => false
+    t.boolean  "last_name",   :default => false
+    t.boolean  "pseudonym",   :default => false
+    t.integer  "frequency",   :default => 10
+    t.integer  "country_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "player_names", ["country_id"], :name => "index_player_names_on_country_id"
+  add_index "player_names", ["first_name"], :name => "index_player_names_on_first_name"
+  add_index "player_names", ["last_name"], :name => "index_player_names_on_last_name"
+  add_index "player_names", ["pseudonym"], :name => "index_player_names_on_pseudonym"
+  add_index "player_names", ["second_name"], :name => "index_player_names_on_second_name"
+
   create_table "players", :force => true do |t|
     t.string   "first_name",   :null => false
     t.string   "second_name"
@@ -155,7 +174,7 @@ ActiveRecord::Schema.define(:version => 20140527132918) do
     t.string   "pseudonym"
     t.integer  "age",          :null => false
     t.float    "gk",           :null => false
-    t.float    "def",          :null => false
+    t.float    "deff",         :null => false
     t.float    "mid",          :null => false
     t.float    "att",          :null => false
     t.float    "shooting",     :null => false
@@ -167,12 +186,14 @@ ActiveRecord::Schema.define(:version => 20140527132918) do
     t.integer  "potential",    :null => false
     t.integer  "foot",         :null => false
     t.integer  "country_id",   :null => false
+    t.integer  "team_id"
     t.string   "icon"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
   add_index "players", ["country_id"], :name => "index_players_on_country_id"
+  add_index "players", ["team_id"], :name => "index_players_on_team_id"
 
   create_table "promotions", :force => true do |t|
     t.integer  "league_from_id",                     :null => false

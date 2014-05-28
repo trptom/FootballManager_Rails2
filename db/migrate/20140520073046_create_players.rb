@@ -7,7 +7,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :pseudonym,    :null => true, :default => nil
       t.integer :age,         :null => false
       t.float :gk,            :null => false
-      t.float :def,           :null => false
+      t.float :deff,          :null => false
       t.float :mid,           :null => false
       t.float :att,           :null => false
       t.float :shooting,      :null => false
@@ -26,5 +26,6 @@ class CreatePlayers < ActiveRecord::Migration
     end
     
     add_index :players, :country_id
+    add_index :players, :team_id
   end
 end

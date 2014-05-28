@@ -5,6 +5,7 @@ class Country < ActiveRecord::Base
   has_many :teams
   has_many :leagues
   has_many :country_coefs
+  has_many :player_names
   
   def get_position
     coefs = CountryCoef.ordered_by_sum

@@ -14,18 +14,17 @@ module TeamsHelper
         if s_players[PLAYER_POSITION_GK].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_GK]
           p = PlayersHelper::generate_goalkeeper(team)
           s_players[PLAYER_POSITION_GK] << p
-        elsif s_players[PLAYER_POSITION_GK].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_GK]
+        elsif s_players[PLAYER_POSITION_D].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_D]
           p = PlayersHelper::generate_defender(team)
-          s_players[PLAYER_POSITION_GK] << p
-        elsif s_players[PLAYER_POSITION_GK].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_GK]
+          s_players[PLAYER_POSITION_D] << p
+        elsif s_players[PLAYER_POSITION_M].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_M]
           p = PlayersHelper::generate_midfielder(team)
-          s_players[PLAYER_POSITION_GK] << p
-        elsif s_players[PLAYER_POSITION_GK].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_GK]
+          s_players[PLAYER_POSITION_M] << p
+        elsif s_players[PLAYER_POSITION_S].count < TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_S]
           p = PlayersHelper::generate_attacker(team)
-          s_players[PLAYER_POSITION_GK] << p
+          s_players[PLAYER_POSITION_S] << p
         else
           p = PlayersHelper::generate_random(team)
-          s_players[PLAYER_POSITION_GK] << p
         end
       end
     else

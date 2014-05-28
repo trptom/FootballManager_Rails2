@@ -1,3 +1,5 @@
+include TeamsHelper
+
 class CreateLeagueTeams < ActiveRecord::Migration
   @@team_counter = 1
   
@@ -16,9 +18,11 @@ class CreateLeagueTeams < ActiveRecord::Migration
     ).save
     
     @@team_counter = @@team_counter + 1
+    
+    return @t
   end
   
-  def change
+  def self.up
     create_table :league_teams do |t|
       t.references :league,         :null => false
       t.references :team,           :null => false
@@ -46,9 +50,14 @@ class CreateLeagueTeams < ActiveRecord::Migration
     for country in Country.all do
       for league in country.leagues.where(:league_type => LEAGUE_TYPE_STANDARD).order(:level).all
         for team_id in 1..18 do
-          add_team(league, country)
+          t = add_team(league, country)
+          TeamsHelper::fill_squad(t)
         end
       end
     end
+  end
+  
+  def self.down
+    drop_table :league_teams
   end
 end

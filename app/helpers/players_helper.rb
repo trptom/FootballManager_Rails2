@@ -12,7 +12,15 @@ module PlayersHelper
   end
   
   def guess_name(country)
-    # TODO guessing
+    first_names = PlayerName.first_names_c(country)
+    last_names = PlayerName.last_names_c(country)
+    
+    return {
+      :first_name => first_names.offset(rand(first_names.count)).first,
+      :second_name => nil,
+      :last_name => last_names.offset(rand(last_names.count)).first,
+      :pseudonym => nil
+    }
   end
   
   def guess_age()
@@ -44,23 +52,30 @@ module PlayersHelper
     else
       ret[PLAYER_POSITION_S] = PLAYER_POSITION_MAX
     end
-    return rand(17..20)
+    
+    return ret
   end
   
   def guess_quality(team)
-    
+    return rand(100)+1
   end
   
   def guess_potential(team)
-    
+    return rand(100)+1
   end
   
   def guess_foot
-    
+    return rand(5)-2
   end
   
   def guess_atts(age, quality, potential)
-    
+    return {
+      :shooting => (rand(16) + 10),
+      :passing => (rand(16) + 10),
+      :stamina => (rand(16) + 10),
+      :speed => (rand(16) + 10),
+      :aggresivness => (rand(16) + 10)
+    }
   end
   
   ##############################################################################
@@ -134,15 +149,15 @@ module PlayersHelper
       :last_name => name[:last_name],
       :pseudonym => name[:pseudonym],
       :age => age,
-      :gk => pos[:gk],
-      :def => pos[:def],
-      :mid => pos[:mid],
-      :att => pos[:att],
-      :shooting => atts[],
-      :passing => atts[],
-      :stamina => atts[],
-      :speed => atts[],
-      :aggresivness => atts[],
+      :gk => pos[PLAYER_POSITION_GK],
+      :deff => pos[PLAYER_POSITION_D],
+      :mid => pos[PLAYER_POSITION_M],
+      :att => pos[PLAYER_POSITION_S],
+      :shooting => atts[:shooting],
+      :passing => atts[:passing],
+      :stamina => atts[:stamina],
+      :speed => atts[:speed],
+      :aggresivness => atts[:aggresivness],
       :quality => quality,
       :potential => potential,
       :foot => foot,
