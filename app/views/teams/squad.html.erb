@@ -3,7 +3,7 @@
     <% for player in @players %>
       <tr>
         <td><%= player.get_name %></td>
-        <td><%= player.country.shortcut %></td>
+        <td><%= image_tag(asset_path(File.join(FLAGS_SMALL, player.country.shortcut.downcase + ".png")), title: I18n.t("countries." + player.country.shortcut) ) %></td>
         <td><%= player.age %></td>
         <td><%= player.gk %></td>
         <td><%= player.deff %></td>

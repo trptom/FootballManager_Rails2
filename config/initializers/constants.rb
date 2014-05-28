@@ -52,3 +52,7 @@ TEAM_REFILL_PLAYERS_POS_TO = {
 }
 NAME_FREQUENCY_MIN = 1
 NAME_FREQUENCY_MAX = 10
+
+# folders
+FLAGS = "flags"
+FLAGS_SMALL = File.join(FLAGS, "small")

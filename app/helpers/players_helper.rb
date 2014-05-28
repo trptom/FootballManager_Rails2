@@ -12,8 +12,14 @@ module PlayersHelper
   end
   
   def guess_name(country)
-    first_names = PlayerName.first_names_c(country)
-    last_names = PlayerName.last_names_c(country)
+    first_names = nil
+    last_names = nil
+    
+    rnd_first = rand(NAME_FREQUENCY_MAX)
+    rnd_last = rand(NAME_FREQUENCY_MAX)
+    
+    first_names = PlayerName.first_names_c(country).where("frequency > ?", rnd_first)
+    last_names = PlayerName.last_names_c(country).where("frequency > ?", rnd_last)
     
     return {
       :first_name => first_names.offset(rand(first_names.count)).first.name_str,
