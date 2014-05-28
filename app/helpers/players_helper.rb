@@ -16,9 +16,9 @@ module PlayersHelper
     last_names = PlayerName.last_names_c(country)
     
     return {
-      :first_name => first_names.offset(rand(first_names.count)).first,
+      :first_name => first_names.offset(rand(first_names.count)).first.name_str,
       :second_name => nil,
-      :last_name => last_names.offset(rand(last_names.count)).first,
+      :last_name => last_names.offset(rand(last_names.count)).first.name_str,
       :pseudonym => nil
     }
   end

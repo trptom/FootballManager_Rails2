@@ -23,4 +23,20 @@ class Player < ActiveRecord::Base
     end
     return nil
   end
+  
+  def get_name
+    if pseudonym != nil
+      return pseudonym
+    end
+    
+    if first_name != nil
+      if second_name != nil
+        return first_name + " " + second_name + " " + last_name
+      else
+        return first_name + " " + last_name
+      end
+    end
+    
+    return last_name
+  end
 end

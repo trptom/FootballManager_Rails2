@@ -1,0 +1,15 @@
+<table>
+  <tbody>
+    <% for player in @players %>
+      <tr>
+        <td><%= player.get_name %></td>
+        <td><%= player.country.shortcut %></td>
+        <td><%= player.age %></td>
+        <td><%= player.gk %></td>
+        <td><%= player.deff %></td>
+        <td><%= player.mid %></td>
+        <td><%= player.att %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
