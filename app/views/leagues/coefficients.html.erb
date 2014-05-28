@@ -1,0 +1,9 @@
+<% for coef in @coefs %>
+<%= coef.country.shortcut %> | <%= coef.coef %> |
+<% for c in CountryCoef.by_country_and_years(coef.country, Params.season-5, Params.season) %>
+| <%= c.coef %>
+<% end %>
+||
+<%= coef.country.get_qualyfication.teams_champions_cup %>
+<br />
+<% end %>

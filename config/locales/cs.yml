@@ -30,6 +30,7 @@ cs:
       league_statistics: Statistiky
       all_leagues: Všechny ligy
       all_leagues_international: Mezinárodní
+      league_coefs: Koeficienty
     
     form:
       submit: Odeslat

@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   belongs_to :user
   belongs_to :country
   has_many :league_teams
+  has_many :team_coefs
   has_many :home_games, :class_name => 'Game', :foreign_key => 'team_home_id'
   has_many :away_games, :class_name => 'Game', :foreign_key => 'team_away_id'
   

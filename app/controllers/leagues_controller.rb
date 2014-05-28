@@ -1,4 +1,8 @@
 class LeaguesController < ApplicationController
+  def coefficients
+    @coefs = CountryCoef.ordered_by_sum(Params.season-5, Params.season-1)
+  end
+  
   def show
     @league = League.find(params[:id])
     @league_teams = []

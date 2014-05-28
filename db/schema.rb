@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140520131655) do
+ActiveRecord::Schema.define(:version => 20140527132918) do
 
   create_table "actions", :force => true do |t|
     t.text     "content",    :null => false
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(:version => 20140520131655) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "country_coef_qualyfications", :force => true do |t|
+    t.integer  "position",                           :null => false
+    t.integer  "teams_champions_cup", :default => 0, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  create_table "country_coefs", :force => true do |t|
+    t.integer  "country_id",                  :null => false
+    t.integer  "season",                      :null => false
+    t.decimal  "coef",       :default => 0.0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "country_coefs", ["country_id"], :name => "index_country_coefs_on_country_id"
+  add_index "country_coefs", ["season"], :name => "index_country_coefs_on_season"
 
   create_table "game_actions", :force => true do |t|
     t.integer  "game_id",    :null => false
@@ -192,6 +210,17 @@ ActiveRecord::Schema.define(:version => 20140520131655) do
   end
 
   add_index "stadium_stands", ["stadium_id"], :name => "index_stadium_stands_on_stadium_id"
+
+  create_table "team_coefs", :force => true do |t|
+    t.integer  "team_id",                     :null => false
+    t.integer  "season",                      :null => false
+    t.decimal  "coef",       :default => 0.0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "team_coefs", ["season"], :name => "index_team_coefs_on_season"
+  add_index "team_coefs", ["team_id"], :name => "index_team_coefs_on_team_id"
 
   create_table "teams", :force => true do |t|
     t.string   "name",       :null => false

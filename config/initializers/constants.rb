@@ -34,3 +34,4 @@ LEAGUE_TYPE_CHAMPIONS_CUP = 100;
 
 DEFAULT_LEAGUE_AGAINST = 2 # default number of games each to each in standard league (when not changed in league.type_data)
 ROUND_BARAGE_BASE = 10000 # id of barage game round. each id is specific by from_pos, e.g. if from_pos is 2, id is 10002
+COEF_COUNT_YEARS = 5 # number of last seasons counted into coefficients

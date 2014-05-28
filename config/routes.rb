@@ -17,6 +17,9 @@ FMRails::Application.routes.draw do
   end
   
   resources :leagues do
+    collection do
+      get :coefficients, :as => :league_coefs
+    end
   end
   
   get "oauths/oauth"
