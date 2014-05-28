@@ -32,6 +32,21 @@ LEAGUE_TYPE_STANDARD = 0;
 LEAGUE_TYPE_CUP = 1;
 LEAGUE_TYPE_CHAMPIONS_CUP = 100;
 
+# player positions
+PLAYER_POSITION_MAX = 100 # max value of position
+PLAYER_POSITION_GK = :pos_gk
+PLAYER_POSITION_D = :pos_d
+PLAYER_POSITION_M = :pos_m
+PLAYER_POSITION_S = :pos_s
+
 DEFAULT_LEAGUE_AGAINST = 2 # default number of games each to each in standard league (when not changed in league.type_data)
 ROUND_BARAGE_BASE = 10000 # id of barage game round. each id is specific by from_pos, e.g. if from_pos is 2, id is 10002
 COEF_COUNT_YEARS = 5 # number of last seasons counted into coefficients
+TEAM_MIN_PLAYERS = 15 # minimal number of players in team
+TEAM_REFILL_PLAYERS_TO = 20 # number of players in team after it is refilled
+TEAM_REFILL_PLAYERS_POS_TO = {
+  PLAYER_POSITION_GK => 2,
+  PLAYER_POSITION_D => 7,
+  PLAYER_POSITION_M => 7,
+  PLAYER_POSITION_S => 4
+}

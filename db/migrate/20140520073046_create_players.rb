@@ -19,6 +19,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.integer :potential,   :null => false
       t.integer :foot,        :null => false
       t.references :country,  :null => false
+      t.references :team,     :null => true, :default => nil
       t.string :icon,         :null => true, :default => nil
 
       t.timestamps
