@@ -26,7 +26,41 @@ class CreateLeagues < ActiveRecord::Migration
       :shortcut => "CC",
       :league_type => LEAGUE_TYPE_CHAMPIONS_CUP,
       :type_data => nil, # champions cup je jen jeden, nepotrebuje dodatecne nastaveni
-      :level => 1,
+      :level => 0, # level pro kompletni prehled poharu
+      :grp => nil,
+      :country => nil
+    ).save
+    
+    # create qualyfication
+    League.new(
+      :shortcut => "CCQUAL",
+      :league_type => LEAGUE_TYPE_CHAMPIONS_CUP,
+      :type_data => nil,
+      :level => 1, # level pro kompletni prehled poharu
+      :grp => nil,
+      :country => nil
+    ).save
+    
+    # create groups
+    x = 1
+    for a in ['A','B','C','D','E','F','G','H']
+      League.new(
+        :shortcut => ("CCGRP" + a),
+        :league_type => LEAGUE_TYPE_CHAMPIONS_CUP,
+        :type_data => nil,
+        :level => 2,
+        :grp => x,
+        :country => nil
+      ).save
+      x = x + 1
+    end
+    
+    # create play off
+    League.new(
+      :shortcut => "CCPO",
+      :league_type => LEAGUE_TYPE_CHAMPIONS_CUP,
+      :type_data => nil,
+      :level => 3, # level pro kompletni prehled poharu
       :grp => nil,
       :country => nil
     ).save

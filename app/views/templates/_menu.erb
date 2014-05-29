@@ -116,7 +116,7 @@
 
                 <ul class="dropdown-menu">
                   <li>
-                    <a tabindex="-1" href="<%= league_coefs_url %>">
+                    <a tabindex="-1" href="/leagues/coefficients">
                       <%= I18n.t("messages.menu.league_coefs") %>
                     </a>
                     
@@ -124,17 +124,19 @@
                       <% for league in League.where(:country_id => nil) %>
                         <li class="dropdown-submenu">
                           <a tabindex="-1" href="#"><%= I18n.t("leagues." + league.shortcut) %></a>
-                          <%= render :partial => 'templates/menu_league', :locals => {:league => league} %>
+                          <%= link_to I18n.t("leagues." + league.shortcut), league %>
                         </li>
                       <% end %>
                     </ul>
                   </li>
                   
+                  <li class="divider"></li>
+                  
                   <li class="dropdown-submenu">
                     <a tabindex="-1" href="#"><%= I18n.t("messages.menu.all_leagues_international") %></a>
                     
                     <ul class="dropdown-menu">
-                      <% for league in League.where(:country_id => nil) %>
+                      <% for league in League.where(:country_id => nil, :level => 0) %>
                         <li class="dropdown-submenu">
                           <a tabindex="-1" href="#"><%= I18n.t("leagues." + league.shortcut) %></a>
                           <%= render :partial => 'templates/menu_league', :locals => {:league => league} %>

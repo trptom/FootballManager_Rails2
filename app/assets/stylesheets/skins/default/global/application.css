@@ -17,7 +17,7 @@ html, body {
 
 body {
     background-color: #99cc00;
-    background-image: url('../textures/grass.jpg');
+    background-image: url('../../../textures/grass.jpg');
     background-repeat: repeat;
 }
 
@@ -179,4 +179,16 @@ body > #locker {
 
 #page.index > table > tfoot > tr:first-of-type > td {
     border-top: solid #000000 1px;
+}
+
+/*******************************************************************************
+ * DALSI FORMATOAVNI
+ ******************************************************************************/
+
+#content-data > .title {
+    padding: 10px;
+    border-bottom: solid #000000 1px;
+    font-weight: bold;
+    font-size: 125%;
+    background-color: #ffffff;
 }

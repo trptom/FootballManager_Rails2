@@ -22,6 +22,18 @@ class League < ActiveRecord::Base
         .where("(league_teams.team_id = teams.id)AND(league_teams.league_id = leagues.id)AND(teams.user_id = ?)AND(league_teams.season = ?)", user.id, season)
   }
 
+  scope :champions_cup_quals, -> {
+    where(:league_type => LEAGUE_TYPE_CHAMPIONS_CUP, :level => 1).order(:grp)
+  }
+  
+  scope :champions_cup_groups, -> {
+    where(:league_type => LEAGUE_TYPE_CHAMPIONS_CUP, :level => 2).order(:grp)
+  }
+  
+  scope :champions_cup_playoff, -> {
+    where(:league_type => LEAGUE_TYPE_CHAMPIONS_CUP, :level => 3).order(:grp)
+  }
+
   def teams(season = Params.season)
     return league_teams.where(:season => season)
   end

@@ -51,6 +51,7 @@ cs:
       
     leagues:
       show:
+        table_group: Skupina %{grpId}
         table_1: Název týmu
         table_2: Z
         table_3: V
@@ -62,8 +63,43 @@ cs:
         table_9: Body
   
   leagues:
+    CC: Liga mistrů
+    CCQUAL: Liga mistrů - kvalifikace
+    CCGRPA: Liga mistrů - skupina A
+    CCGRPB: Liga mistrů - skupina B
+    CCGRPC: Liga mistrů - skupina C
+    CCGRPD: Liga mistrů - skupina D
+    CCGRPE: Liga mistrů - skupina E
+    CCGRPF: Liga mistrů - skupina F
+    CCGRPG: Liga mistrů - skupina G
+    CCGRPH: Liga mistrů - skupina H
+    CCPO: Liga mistrů - play off
+
+    ARG1: Argentinská 1. liga
+    ARG2: Argentinská 2. liga
+    ARG3A: Argentinská 3. liga, skupina A
+    ARG3B: Argentinská 3. liga, skupina B
+    ARG4A: Argentinská 4. liga, skupina A
+    ARG4B: Argentinská 4. liga, skupina B
+    ARG4C: Argentinská 4. liga, skupina C
+    ARG4D: Argentinská 4. liga, skupina D
+    ARG5A: Argentinská 5. liga, skupina A
+    ARG5B: Argentinská 5. liga, skupina B
+    ARG5C: Argentinská 5. liga, skupina C
+    ARG5D: Argentinská 5. liga, skupina D
+    
     CZE1: Česká 1. liga
-    CZE2: Česká 1. liga
+    CZE2: Česká 2. liga
+    CZE3A: Česká 3. liga, skupina A
+    CZE3B: Česká 3. liga, skupina B
+    CZE4A: Česká 4. liga, skupina A
+    CZE4B: Česká 4. liga, skupina B
+    CZE4C: Česká 4. liga, skupina C
+    CZE4D: Česká 4. liga, skupina D
+    CZE5A: Česká 5. liga, skupina A
+    CZE5B: Česká 5. liga, skupina B
+    CZE5C: Česká 5. liga, skupina C
+    CZE5D: Česká 5. liga, skupina D
   
   countries:
     ARG: Argentina

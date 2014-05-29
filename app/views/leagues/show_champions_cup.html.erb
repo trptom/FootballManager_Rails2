@@ -1,0 +1,36 @@
+<div class="title">
+  <%= I18n.t "leagues." + @league.shortcut %>
+</div>
+
+<div class="league">
+  <% for group in @groups %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <td><%= I18n.t("messages.leagues.show.table_group", :grpId => group.grp) %></td>
+            <td><%= I18n.t("messages.leagues.show.table_2") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_3") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_5") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_7") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_8") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_9") %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for league_team in group.league_teams.sorted do %>
+            <tr class="<%= league_team[:style] %>">
+              <td><%= link_to league_team[:data].team.name, league_team[:data].team %></td>
+              <td><%= league_team[:data].gp %></td>
+              <td><%= league_team[:data].w %></td>
+              <td><%= league_team[:data].t %></td>
+              <td><%= league_team[:data].l %></td>
+              <td><%= league_team[:data].gf %>:<%= league_team[:data].ga %></td>
+              <td><%= league_team[:data].pts %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
