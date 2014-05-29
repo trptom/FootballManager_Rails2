@@ -61,6 +61,23 @@ cs:
         table_7: P
         table_8: Skóre
         table_9: Body
+        next_games: Nadcházející zápasy
+        previous_games: Odehrané zápasy
+        current_games: Aktuálně hrané zápasy
+        table_game_1: Datum
+        table_game_2: Kolo
+        table_game_3: Domácí
+        table_game_4: Hosté
+        table_game_5: Výsledek
+      games:
+        next_games: Nadcházející zápasy
+        previous_games: Odehrané zápasy
+        current_games: Aktuálně hrané zápasy
+        table_game_1: Datum
+        table_game_2: Kolo
+        table_game_3: Domácí
+        table_game_4: Hosté
+        table_game_5: Výsledek
   
   leagues:
     CC: Liga mistrů

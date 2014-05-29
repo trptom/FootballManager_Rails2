@@ -1,8 +1,96 @@
 <div class="title">
-  <%= I18n.t "leagues." + @league.shortcut %>
+  <%= I18n.t LEAGUE_MESSAGES_KEY + @league.shortcut %>
 </div>
 
 <div class="league">
+  <% if @games_count[:current] > 0 %>
+    <div class="table-wrapper standard">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="5"><%= I18n.t("messages.leagues.show.current_games") %></td>
+          </tr>
+          <tr>
+            <td><%= I18n.t("messages.leagues.show.table_game_1") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_2") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_3") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_4") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_5") %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for a in 0..@games_count[:current]-1 %>
+            <tr>
+              <td><%= I18n.l @games[:current][a].start %></td>
+              <td><%= @games[:current][a].round %></td>
+              <td><%= link_to @games[:current][a].team_home.name, @games[:current][a].team_home %></td>
+              <td><%= link_to @games[:current][a].team_away.name, @games[:current][a].team_away %></td>
+              <td><%= @games[:current][a].score_home + ":" + @games[:current][a].score_away %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+    
+  <% if @games_count[:next] > 0 %>
+    <div class="table-wrapper standard">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="4"><%= I18n.t("messages.leagues.show.next_games") %></td>
+          </tr>
+          <tr>
+            <td><%= I18n.t("messages.leagues.show.table_game_1") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_2") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_3") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_4") %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for a in 0..@games_count[:next]-1 %>
+            <tr>
+              <td><%= I18n.l @games[:next][a].start %></td>
+              <td><%= @games[:next][a].round %></td>
+              <td><%= link_to @games[:next][a].team_home.name, @games[:next][a].team_home %></td>
+              <td><%= link_to @games[:next][a].team_away.name, @games[:next][a].team_away %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  
+  <% if @games_count[:previous] > 0 %>
+    <div class="table-wrapper standard">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="5"><%= I18n.t("messages.leagues.show.previous_games") %></td>
+          </tr>
+          <tr>
+            <td><%= I18n.t("messages.leagues.show.table_game_1") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_2") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_3") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_4") %></td>
+            <td><%= I18n.t("messages.leagues.show.table_game_5") %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for a in 0..@games_count[:previous]-1 %>
+            <tr>
+              <td><%= I18n.l @games[:previous][a].start %></td>
+              <td><%= @games[:previous][a].round %></td>
+              <td><%= link_to @games[:previous][a].team_home.name, @games[:previous][a].team_home %></td>
+              <td><%= link_to @games[:previous][a].team_away.name, @games[:previous][a].team_away %></td>
+              <td><%= @games[:previous][a].score_home + ":" + @games[:previous][a].score_away %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+    
   <div class="table-wrapper standard">
     <table>
       <thead>

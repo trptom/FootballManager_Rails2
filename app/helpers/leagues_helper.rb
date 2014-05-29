@@ -147,6 +147,7 @@ module LeaguesHelper
             game = Game.new(
               :league => league,
               :season => Params.season,
+              :round => (a*GAMES[teams_count].length + b),
               :start => DateTime.now, # TODO start date of new game
               :team_home => teams[home_team].team,
               :team_away => teams[away_team].team,

@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
     :score_away, :score_half_away, :score_half_home, :score_home,
     :season, :start, :started, :winner, :league, :league_id,
     :team_home, :team_home_id, :team_away, :team_away_id,
-    :league, :league_id, :stadium, :stadium_id
+    :league, :league_id, :stadium, :stadium_id, :round
   
   belongs_to :league
   belongs_to :team_home, :class_name => "Team"
@@ -15,16 +15,16 @@ class Game < ActiveRecord::Base
     where(:league_id => league.id, :started => false).order("start DESC")
   }
   
-  scope :previous_by_league, ->(league) {
-    where(:league_id => league.id, :started => false).order("start DESC")
+  scope :next_by_league, ->(league) {
+    where(:league_id => league.id, :started => false).order(:start, :round)
   }
   
   scope :current_by_league, ->(league) {
     where(:league_id => league.id, :started => true, :finished => false).order(:start)
   }
   
-  scope :next_by_league, ->(league) {
-    where(:league_id => league.id, :finished => true).order(:start)
+  scope :previous_by_league, ->(league) {
+    where(:league_id => league.id, :finished => true).order("start DESC, round desc")
   }
   
   def home_players

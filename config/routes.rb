@@ -23,6 +23,9 @@ FMRails::Application.routes.draw do
   end
   
   resources :leagues do
+    member do
+      get :games
+    end
   end
   
   resources :teams do

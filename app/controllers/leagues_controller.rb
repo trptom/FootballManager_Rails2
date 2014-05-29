@@ -10,6 +10,11 @@ class LeaguesController < ApplicationController
       :current => Game.current_by_league(@league),
       :next => Game.next_by_league(@league)
     }
+    @games_count = {
+      :previous => [@games[:previous].count, @league.league_teams.count/2].min,
+      :current => @games[:current].count,
+      :next => [@games[:next].count, @league.league_teams.count/2].min
+    }
     
     case @league.league_type
     when LEAGUE_TYPE_STANDARD
@@ -55,5 +60,14 @@ class LeaguesController < ApplicationController
       when 3 # play off
       end
     end
+  end
+  
+  def games
+    @league = League.find(params[:id])
+    @games = {
+      :previous => Game.previous_by_league(@league),
+      :current => Game.current_by_league(@league),
+      :next => Game.next_by_league(@league)
+    }
   end
 end
