@@ -7,6 +7,7 @@ class League < ActiveRecord::Base
   has_many :games
   has_many :promotions, :class_name => 'Promotion', :foreign_key => 'league_from_id'
   has_many :relegations, :class_name => 'Promotion', :foreign_key => 'league_to_id'
+  has_many :player_stats
   
   serialize :type_data
   

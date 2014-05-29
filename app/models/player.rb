@@ -7,6 +7,8 @@ class Player < ActiveRecord::Base
   
   belongs_to :country
   belongs_to :team
+  has_many :player_stats
+  has_many :game_players
   
   def get_position
     if gk == PLAYER_POSITION_MAX
@@ -38,5 +40,9 @@ class Player < ActiveRecord::Base
     end
     
     return last_name
+  end
+  
+  def league_stats(league, season = Params.season)
+    return player_stats.where(:league_id => league.id, :season => season).first
   end
 end

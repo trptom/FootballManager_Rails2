@@ -9,6 +9,7 @@ class Game < ActiveRecord::Base
   belongs_to :team_home, :class_name => "Team"
   belongs_to :team_away, :class_name => "Team"
   belongs_to :stadium
+  has_many :game_players
   
   scope :played_by_league, ->(league) {
     where(:league_id => league.id, :started => false).order("start DESC")
@@ -25,6 +26,14 @@ class Game < ActiveRecord::Base
   scope :next_by_league, ->(league) {
     where(:league_id => league.id, :finished => true).order(:start)
   }
+  
+  def home_players
+    return game_players.where(:team_id => HOME_TEAM_ID).order(:position)
+  end
+  
+  def away_players
+    return game_players.where(:team_id => AWAY_TEAM_ID).order(:position)
+  end
   
   def real_min
     return ((DateTime.now - gameTime.now) * 1440).ceil
