@@ -1,0 +1,33 @@
+<div class="league">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for coef in @coefs %>
+          <tr>
+            <td><%= I18n.t coef.country.get_i18n_message %></td>
+            <td><%= coef.country.get_flag_img(FLAGS_SMALL) %></td>
+            <% for c in CountryCoef.by_country_and_years(coef.country, Params.season-5, Params.season) %>
+              <td><%= COUNTRY_COEF_FORMAT % c.coef %></td>
+            <% end %>
+            <td><%= COUNTRY_COEF_FORMAT % coef.coef %></td>
+            <td><%= coef.country.get_qualyfication.teams_champions_cup %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

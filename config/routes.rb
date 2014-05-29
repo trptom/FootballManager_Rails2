@@ -15,16 +15,19 @@ FMRails::Application.routes.draw do
   
   resources :games do
   end
+
+  resources :countries do
+    collection do
+      get :coefficients
+    end
+  end
   
   resources :leagues do
-    collection do
-      get :coefficients, :as => :league_coefs
-    end
   end
   
   resources :teams do
     member do
-      get :squad, :as => :team_squad
+      get :squad
     end
   end
   

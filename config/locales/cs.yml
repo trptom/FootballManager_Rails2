@@ -103,7 +103,15 @@ cs:
   
   countries:
     ARG: Argentina
+    BRA: Brazílie
     CZE: Česká republika
+    ENG: Anglie
+    FRA: Francie
+    GER: Německo
+    ITA: Itálie
+    NED: Nizozemsko
+    SPA: Španělsko
+    SVK: Slovensko
 
   ##############################################################################
   # FORMATTING PART

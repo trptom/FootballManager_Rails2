@@ -24,4 +24,17 @@ class Country < ActiveRecord::Base
   def get_qualyfication
     return CountryCoefQualyfication.by_pos(get_position)
   end
+  
+  def get_flag_url(type)
+    return ActionController::Base.helpers.asset_path(File.join(type, shortcut.downcase + ".png"))
+  end
+  
+  def get_flag_img(type)
+    url = get_flag_url(type)
+    return ActionController::Base.helpers.image_tag(url, title: I18n.t("countries." + shortcut))
+  end
+  
+  def get_i18n_message
+    return COUNTRY_MESSAGES_KEY + shortcut
+  end
 end

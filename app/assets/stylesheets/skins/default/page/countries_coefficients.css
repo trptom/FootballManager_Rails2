@@ -1,0 +1,23 @@
+body.countries div.league > div.table-wrapper {
+    margin: 20px;
+}
+
+body.countries div.league > div.table-wrapper table {
+    width: 100%;
+}
+
+body.countries table {
+    border: solid #000000 1px;
+    border-radius: 5px;
+}
+
+body.countries table td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+body.countries table thead td {
+    border-bottom: solid #000000 1px;
+    font-weight: bold;
+    background-color: #ffffff;
+}

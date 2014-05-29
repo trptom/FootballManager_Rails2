@@ -52,6 +52,10 @@ TEAM_REFILL_PLAYERS_POS_TO = {
 }
 NAME_FREQUENCY_MIN = 1
 NAME_FREQUENCY_MAX = 10
+COUNTRY_COEF_FORMAT = "%0.3f" # format of country coef in coefficients table
+TEAM_COEF_FORMAT = "%0.3f" # format of team coef in coefficients table
+COUNTRY_MESSAGES_KEY = "countries." # section in locales where are located country names
+LEAGUE_MESSAGES_KEY = "leagues." # section in locales where are located league names
 
 # folders
 FLAGS = "flags"
