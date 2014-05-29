@@ -31,7 +31,7 @@ class CreateLeagues < ActiveRecord::Migration
       :country => nil
     ).save
     
-    # create qualyfication
+    # create qualification
     League.new(
       :shortcut => "CCQUAL",
       :league_type => LEAGUE_TYPE_CHAMPIONS_CUP,

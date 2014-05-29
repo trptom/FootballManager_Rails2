@@ -1,4 +1,4 @@
-class CountryCoefQualyfication < ActiveRecord::Base
+class CountryCoefQualification < ActiveRecord::Base
   attr_accessible :position, :teams_champions_cup
   
   def self.by_pos(position)

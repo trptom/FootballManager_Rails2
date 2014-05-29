@@ -55,7 +55,7 @@ class LeaguesController < ApplicationController
         @po = League.champions_cup_playoff
         
         render "show_champions_cup"
-      when 1 # qualyfication
+      when 1 # qualification
       when 2 # group stage
       when 3 # play off
       end

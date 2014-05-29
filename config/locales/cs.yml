@@ -78,6 +78,13 @@ cs:
         table_game_3: Domácí
         table_game_4: Hosté
         table_game_5: Výsledek
+        
+    countries:
+      coefficients:
+        table_country: Stát
+        table_year: Sezóna %{season}
+        table_total: Celkem
+        table_qualification: Kvalifikace
   
   leagues:
     CC: Liga mistrů

@@ -8,7 +8,13 @@ class Country < ActiveRecord::Base
   has_many :player_names
   
   def get_position
-    coefs = CountryCoef.ordered_by_sum
+    # for first season I order teams by current season coefficient.
+    if Params.season == 1
+      coefs = CountryCoef.ordered_by_sum(1, 1)
+    else
+      coefs = CountryCoef.ordered_by_sum
+    end
+    
     a = 1
     
     for c in coefs
@@ -21,8 +27,8 @@ class Country < ActiveRecord::Base
     return nil
   end
   
-  def get_qualyfication
-    return CountryCoefQualyfication.by_pos(get_position)
+  def get_qualification
+    return CountryCoefQualification.by_pos(get_position)
   end
   
   def get_flag_url(type)
