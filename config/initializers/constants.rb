@@ -58,6 +58,7 @@ COUNTRY_MESSAGES_KEY = "countries." # section in locales where are located count
 LEAGUE_MESSAGES_KEY = "leagues." # section in locales where are located league names
 HOME_TEAM_ID = 1 # ID used for home team in game
 AWAY_TEAM_ID = 2 # ID used for away team in game
+SKIN = "default"
 
 # folders
 FLAGS = "flags"

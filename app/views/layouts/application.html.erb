@@ -9,7 +9,13 @@
       <% end %>
     </title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
+    <% for file in get_additional_styles %>
+      <%= stylesheet_link_tag file, :media => "all" %>
+    <% end %>
     <%= javascript_include_tag "application" %>
+    <% for file in get_additional_scripts %>
+      <%= javascript_include_tag file %>
+    <% end %>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= params[:controller] %> <%= params[:action] %>">

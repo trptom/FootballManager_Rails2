@@ -1,0 +1,15 @@
+body.leagues table tr.promotion td {
+    background-color: #66ff66;
+}
+
+body.leagues table tr.promotion.barage td {
+    background-color: #ccffcc;
+}
+
+body.leagues table tr.relegation td {
+    background-color: #ff9999;
+}
+
+body.leagues table tr.relegation.barage td {
+    background-color: #ffcccc;
+}
