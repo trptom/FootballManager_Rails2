@@ -29,14 +29,31 @@ class Game < ActiveRecord::Base
   }
   
   def home_players
-    return game_players.where(:team_id => HOME_TEAM_ID).order(:position)
+    return game_players.where(:team => HOME_TEAM_ID).order(:position)
   end
   
   def away_players
-    return game_players.where(:team_id => AWAY_TEAM_ID).order(:position)
+    return game_players.where(:team => AWAY_TEAM_ID).order(:position)
+  end
+  
+  def home_players_on
+    return home_players.where("position IS NOT NULL").order(:position)
+  end
+  
+  def away_players_on
+    return away_players.where("position IS NOT NULL").order(:position)
+  end
+  
+  def home_players_off
+    return home_players.where(:position => nil)
+  end
+  
+  def away_players_off
+    return away_players.where(:position => nil)
   end
   
   def real_min
-    return ((DateTime.now - gameTime.now) * 1440).ceil
+    Rails.logger.info "fdafadhlfdjlafhadls------ " + (start).to_s
+    return ((DateTime.now.to_i - start.to_i) / 60).ceil
   end
 end

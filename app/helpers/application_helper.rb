@@ -41,8 +41,8 @@ module ApplicationHelper
   end
 
   def get_additional_scripts
-    ctrl_script_url = "skins/" + SKIN + "/page/" + params[:controller] + "/overall.js"
-    page_script_url = "skins/" + SKIN + "/page/" + params[:controller] + "/" + params[:action] + ".js"
+    ctrl_script_url = "page/" + params[:controller] + "/overall.js"
+    page_script_url = "page/" + params[:controller] + "/" + params[:action] + ".js"
 
     res = Array.new
 

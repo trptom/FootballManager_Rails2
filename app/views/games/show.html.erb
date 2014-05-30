@@ -1,0 +1,136 @@
+<div class="league">
+  <div class="table-wrapper standard">
+    <table class="info">
+      <thead>
+        <tr>
+          <td colspan="2">
+            <%= I18n.t("messages.games.show.table_info_title") %>
+            <% if @game.started && !@game.finished %>
+              <div class="pull-right auto-refresh">
+                <%#*TODO zaskrtavani autorefresh podle toho co bylo nastavene naposled (cookies?)%>
+                <input type="checkbox" id="autorefresh" name="autorefresh" onclick="Countries.show.autoRefreshChanged()" checked />
+                <label for="autorefresh"><%= I18n.t "messages.games.show.auto_refresh" %></label>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @game.team_home.name %></td>
+          <td><%= @game.team_away.name %></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <% if @game.started %>
+              <%= @game.score_home %>:<%= @game.score_away %>
+            <% else %>
+              -:-
+            <% end %>
+          </td>
+        </tr>
+        <% if @game.started && !@game.finished %>
+          <tr>
+            <td colspan="2">
+              <%= @game.real_min %>. <%= I18n.t "messages.games.show.min" %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>TODO Soutěž</td>
+          <td><%= I18n.t LEAGUE_MESSAGES_KEY + @game.league.shortcut %></td>
+        </tr>
+        <tr>
+          <td>TODO Kolo</td>
+          <td><%= @game.round %></td>
+        </tr>
+        <tr>
+          <td>TODO Začátek</td>
+          <td><%= I18n.l @game.start.localtime %></td>
+        </tr>
+        <tr>
+          <td>TODO Místo konání</td>
+          <td><%= @game.stadium.name %></td>
+        </tr>
+        <% if @game.started %>
+          <tr>
+            <td>TODO Návštěva</td>
+            <td><%= @game.attendance %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="table-wrapper standard">
+    <table class="squads">
+      <thead>
+        <tr>
+          <td colspan="4"><%= I18n.t("messages.games.show.table_squads_title") %></td>
+        </tr>
+        <tr>
+          <td colspan="2"><%= @game.team_home.name %></td>
+          <td colspan="2"><%= @game.team_away.name %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for a in 0..@squad_length-1 %>
+          <tr>
+            <td><%= @squad[:home][a] != nil ? @squad[:home][a].position : "" %></td>
+            <td><%= @squad[:home][a] != nil ? @squad[:home][a].player.get_name : "" %></td>
+            <td><%= @squad[:away][a] != nil ? @squad[:away][a].position : "" %></td>
+            <td><%= @squad[:away][a] != nil ? @squad[:away][a].player.get_name : "" %></td>
+          </tr>
+        <% end %>
+          
+        <td colspan="4" class="separator"></td>
+        
+        <% for a in 0..@substitutes_length-1 %>
+          <tr>
+            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].position : "" %></td>
+            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].player.get_name : "" %></td>
+            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].position : "" %></td>
+            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].player.get_name : "" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <%#*TODO textovy popis akci%>
+  
+  <div class="table-wrapper standard">
+    <table class="comments">
+      <thead>
+        <tr>
+          <td colspan="4"><%= I18n.t("messages.games.show.table_comments_title") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for a in 0..@squad_length-1 %>
+          <tr>
+            <td><%= @squad[:home][a] != nil ? @squad[:home][a].position : "" %></td>
+            <td><%= @squad[:home][a] != nil ? @squad[:home][a].player.get_name : "" %></td>
+            <td><%= @squad[:away][a] != nil ? @squad[:away][a].position : "" %></td>
+            <td><%= @squad[:away][a] != nil ? @squad[:away][a].player.get_name : "" %></td>
+          </tr>
+        <% end %>
+        
+        <% if @substitutes_length > 0 %>
+          <tr class="separator">
+            <td colspan="4"></td>
+          </tr>
+        <% end %>
+        
+        <% for a in 0..@substitutes_length-1 %>
+          <tr>
+            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].position : "" %></td>
+            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].player.get_name : "" %></td>
+            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].position : "" %></td>
+            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].player.get_name : "" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

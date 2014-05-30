@@ -85,6 +85,14 @@ cs:
         table_year: Sezóna %{season}
         table_total: Celkem
         table_qualification: Kvalifikace
+        
+    games:
+      show:
+        table_info_title: Informace o zápase
+        table_squads_title: Sestavy
+        table_comments_title: Komentáře
+        min: minuta
+        auto_refresh: Automaticky obnovovat stránku
   
   leagues:
     CC: Liga mistrů
