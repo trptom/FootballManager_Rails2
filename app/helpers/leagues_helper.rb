@@ -136,25 +136,33 @@ module LeaguesHelper
         teams << teams_orig[team_ids[a]]
       end
       
+      total_rounds = against * GAMES[teams_count].length
       for a in 0..against-1
         for b in 1..GAMES[teams_count].length
-          Rails.logger.info "  round " + (a*GAMES[teams_count].length + b).to_s
+          round = (a*GAMES[teams_count].length + b)
+          date = DateTime.now + ((round*2)-1).days
+          
+          Rails.logger.info "  round " + round.to_s
           
           for c in 1..GAMES[teams_count][b].length
             home_team = GAMES[teams_count][b][c][a % 2]
             away_team = GAMES[teams_count][b][c][1 - (a % 2)]
-
+            
+            time_array = GAME_START[LEAGUE_TYPE_STANDARD][date.wday]
+            time = time_array[round < total_rounds-2 ? rand(time_array.length) : 0] # last 2 rounds have al games same start time - [0] of list of times for specified day
+            game_date = date.change({:hour => time[0] , :min => time[1]}) # TODO nefuguje offset, vsechno je -2h 
+            
             game = Game.new(
               :league => league,
               :season => Params.season,
-              :round => (a*GAMES[teams_count].length + b),
-              :start => DateTime.now, # TODO start date of new game
+              :round => round,
+              :start => game_date,
               :team_home => teams[home_team].team,
               :team_away => teams[away_team].team,
               :stadium => Stadium.first # TODO stadium for new game
             )
 
-            Rails.logger.info "    " + teams[home_team].team.name + " vs. " + teams[away_team].team.name
+            Rails.logger.info "    " + time.to_s + ": " + teams[home_team].team.name + " vs. " + teams[away_team].team.name
             
             game.save
           end

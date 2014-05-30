@@ -21,11 +21,11 @@
         <tbody>
           <% for game in @games[:current] %>
             <tr>
-              <td><%= I18n.l game.start %></td>
+              <td><%= I18n.l game.start.localtime %></td>
               <td><%= game.round %></td>
               <td><%= link_to game.team_home.name, game.team_home %></td>
               <td><%= link_to game.team_away.name, game.team_away %></td>
-              <td><%= game.score_home.to_s + ":" +game.score_away.to_s %></td>
+              <td><%= link_to game.score_home.to_s + ":" +game.score_away.to_s, game %></td>
             </tr>
           <% end %>
         </tbody>
@@ -51,11 +51,11 @@
         <tbody>
           <% for game in @games[:next] %>
             <tr>
-              <td><%= I18n.l game.start %></td>
+              <td><%= I18n.l game.start.localtime %> ? </td>
               <td><%= game.round %></td>
               <td><%= link_to game.team_home.name, game.team_home %></td>
               <td><%= link_to game.team_away.name, game.team_away %></td>
-              <td><%= game.score_home.to_s + ":" +game.score_away.to_s %></td>
+              <td><%= link_to "-:-", game %></td>
             </tr>
           <% end %>
         </tbody>
@@ -81,11 +81,11 @@
         <tbody>
           <% for game in @games[:previous] %>
             <tr>
-              <td><%= I18n.l game.start %></td>
+              <td><%= I18n.l game.start.localtime %></td>
               <td><%= game.round %></td>
               <td><%= link_to game.team_home.name, game.team_home %></td>
               <td><%= link_to game.team_away.name, game.team_away %></td>
-              <td><%= game.score_home.to_s + ":" +game.score_away.to_s %></td>
+              <td><%= link_to game.score_home.to_s + ":" +game.score_away.to_s, game %></td>
             </tr>
           <% end %>
         </tbody>

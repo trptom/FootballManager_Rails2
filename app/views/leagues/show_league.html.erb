@@ -21,7 +21,7 @@
         <tbody>
           <% for a in 0..@games_count[:current]-1 %>
             <tr>
-              <td><%= I18n.l @games[:current][a].start %></td>
+              <td><%= I18n.l @games[:current][a].start.localtime %></td>
               <td><%= @games[:current][a].round %></td>
               <td><%= link_to @games[:current][a].team_home.name, @games[:current][a].team_home %></td>
               <td><%= link_to @games[:current][a].team_away.name, @games[:current][a].team_away %></td>
@@ -50,7 +50,7 @@
         <tbody>
           <% for a in 0..@games_count[:next]-1 %>
             <tr>
-              <td><%= I18n.l @games[:next][a].start %></td>
+              <td><%= I18n.l @games[:next][a].start.localtime %></td>
               <td><%= @games[:next][a].round %></td>
               <td><%= link_to @games[:next][a].team_home.name, @games[:next][a].team_home %></td>
               <td><%= link_to @games[:next][a].team_away.name, @games[:next][a].team_away %></td>
@@ -79,7 +79,7 @@
         <tbody>
           <% for a in 0..@games_count[:previous]-1 %>
             <tr>
-              <td><%= I18n.l @games[:previous][a].start %></td>
+              <td><%= I18n.l @games[:previous][a].start.localtime %></td>
               <td><%= @games[:previous][a].round %></td>
               <td><%= link_to @games[:previous][a].team_home.name, @games[:previous][a].team_home %></td>
               <td><%= link_to @games[:previous][a].team_away.name, @games[:previous][a].team_away %></td>
