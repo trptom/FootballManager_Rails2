@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529114320) do
+ActiveRecord::Schema.define(:version => 20140530082216) do
 
   create_table "actions", :force => true do |t|
     t.text     "content",    :null => false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20140529114320) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "country_coef_qualifications", :force => true do |t|
+  create_table "country_coef_qualyfications", :force => true do |t|
     t.integer  "position",                           :null => false
     t.integer  "teams_champions_cup", :default => 0, :null => false
     t.datetime "created_at",                         :null => false
@@ -64,6 +64,17 @@ ActiveRecord::Schema.define(:version => 20140529114320) do
 
   add_index "game_actions", ["action_id"], :name => "index_game_actions_on_action_id"
   add_index "game_actions", ["game_id"], :name => "index_game_actions_on_game_id"
+
+  create_table "game_comments", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "game_id",    :null => false
+    t.text     "content",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "game_comments", ["game_id"], :name => "index_game_comments_on_game_id"
+  add_index "game_comments", ["user_id"], :name => "index_game_comments_on_user_id"
 
   create_table "game_events", :force => true do |t|
     t.integer  "game_id",    :null => false

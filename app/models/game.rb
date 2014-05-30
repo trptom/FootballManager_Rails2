@@ -10,6 +10,7 @@ class Game < ActiveRecord::Base
   belongs_to :team_away, :class_name => "Team"
   belongs_to :stadium
   has_many :game_players
+  has_many :game_comments
   
   scope :played_by_league, ->(league) {
     where(:league_id => league.id, :started => false).order("start DESC")

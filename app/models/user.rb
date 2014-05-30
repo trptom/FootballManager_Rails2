@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
     config.authentications_class = Authentication
   end
 
+  has_many :teams
+  has_many :game_comments
   has_many :authentications, :dependent => :destroy
   accepts_nested_attributes_for :authentications
   
-  has_many :teams
-
   attr_accessible :activation_expires_at, :activation_state, :activation_token,
     :password, :password_confirmation, :salt, :authentications_attributes,
     :username, :email, :first_name, :second_name, :role,
