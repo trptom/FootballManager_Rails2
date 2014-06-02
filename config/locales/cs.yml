@@ -102,6 +102,12 @@ cs:
         table_2: Priorita
         create_new: Vytvořit novou taktiku
   
+    tactics:
+      show:
+        table_squad_title: Soupiska
+        table_squad_1: Pozice
+        table_squad_2: Hráči
+  
   leagues:
     CC: Liga mistrů
     CCQUAL: Liga mistrů - kvalifikace

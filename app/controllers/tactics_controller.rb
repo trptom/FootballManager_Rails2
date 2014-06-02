@@ -13,10 +13,10 @@ class TacticsController < ApplicationController
       :'data-flag' => p.country.get_flag_url(FLAGS_SMALL),
       :'data-age' => p.age.to_s + " " + I18n.t("messages.base.years"),
       
-      :'data-gk' => p.gk,
-      :'data-def' => p.deff,
-      :'data-mid' => p.mid,
-      :'data-att' => p.att
+      :'data-gk' => p.gk.round,
+      :'data-def' => p.deff.round,
+      :'data-mid' => p.mid.round,
+      :'data-att' => p.att.round
     } ] }
   end
   

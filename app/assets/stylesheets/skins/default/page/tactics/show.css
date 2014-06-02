@@ -1,5 +1,9 @@
-.player-detail {
-    width: 500px;
+table.squad tr td:first-of-type {
+    width: 100px;
+}
+
+.player-select {
+    width: 100%;
 }
 
 .player-detail,
@@ -8,22 +12,34 @@
 }
 
 .player-detail > div {
-    display: inline-block;
+    position: relative;
+    top: 0px;
 }
 
-.player-detail > div:first-of-type { // info
-    width: 500px;
-    border:solid;
+.player-detail > div,
+.player-detail > div > div {
+    display: inline-block;
+    line-height: 26px;
+}
+
+.player-detail > div:first-of-type { /* info */
+    overflow: hidden;
+    display: inline-block;
 }
 
 .player-detail > div:first-of-type > * {
     margin-right: 20px;
 }
 
-.player-detail > div:last-of-type { // atts
+.player-detail > div:last-of-type { /* atts */
+    float: right;
 }
 
 .player-detail > div:last-of-type > * {
-    width: 30px;
+    width: 50px;
     text-align: center;
+}
+
+.position-select {
+    width: 100px;
 }

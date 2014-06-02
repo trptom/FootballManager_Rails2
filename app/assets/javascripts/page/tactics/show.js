@@ -37,23 +37,24 @@ Tactics.Show = {
         var ret = document.createElement("div");
         $(ret).addClass("player-detail");
         
+        ret.nation = document.createElement("img");
         ret.info = document.createElement("div");
         ret.atts = document.createElement("div");
         
-        ret.name = document.createElement("span");
-        ret.nation = document.createElement("img");
-        ret.age = document.createElement("span");
-        ret.gk = document.createElement("span");
-        ret.def = document.createElement("span");
-        ret.mid = document.createElement("span");
-        ret.att = document.createElement("span");
+        ret.name = document.createElement("div");
+        ret.age = document.createElement("div");
+        ret.gk = document.createElement("div");
+        ret.deff = document.createElement("div");
+        ret.mid = document.createElement("div");
+        ret.att = document.createElement("div");
+        
+        ret.nation.src = $(o.element).data('flag');
         
         ret.name.innerHTML = $(o.element).data('name');
-        ret.nation.src = $(o.element).data('flag');
         ret.age.innerHTML = "(" + $(o.element).data('age') + ")";
         
         ret.gk.innerHTML = $(o.element).data('gk');
-        ret.def.innerHTML = $(o.element).data('def');
+        ret.deff.innerHTML = $(o.element).data('def');
         ret.mid.innerHTML = $(o.element).data('mid');
         ret.att.innerHTML = $(o.element).data('att');
 
@@ -64,7 +65,7 @@ Tactics.Show = {
         ret.info.appendChild(ret.name);
         ret.info.appendChild(ret.age);
         ret.atts.appendChild(ret.gk);
-        ret.atts.appendChild(ret.def);
+        ret.atts.appendChild(ret.deff);
         ret.atts.appendChild(ret.mid);
         ret.atts.appendChild(ret.att);
         
