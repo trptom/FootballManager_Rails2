@@ -7,6 +7,17 @@ class TacticsController < ApplicationController
       :on => @tactics.tactics_players.players_on,
       :substitutors => @tactics.tactics_players.players_sub
     }
+    
+    @player_list = @team.players.map{ |p| [ p.get_name, p.id, {
+      :'data-name' => p.get_name,
+      :'data-flag' => p.country.get_flag_url(FLAGS_SMALL),
+      :'data-age' => p.age.to_s + " " + I18n.t("messages.base.years"),
+      
+      :'data-gk' => p.gk,
+      :'data-def' => p.deff,
+      :'data-mid' => p.mid,
+      :'data-att' => p.att
+    } ] }
   end
   
   def create

@@ -13,6 +13,7 @@ cs:
       
     base:
       error: Chyba
+      years: let
     menu:
       login: Přihlásit se
       logout: Odhlásit se

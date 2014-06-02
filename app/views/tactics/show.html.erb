@@ -47,13 +47,13 @@
           <tr class="<%= player_on == @players[:on].last ? "last" : "" %>">
             <td>
               <% if player_on.position != POSITION_ID[POSITION_GK] %>
-                <%= select_tag "position_" + player_on.id.to_s, options_for_select(POSITIONS_SELECTABLE, player_on.position) %>
+                <%= select_tag "position_" + player_on.id.to_s, options_for_select(POSITIONS_SELECTABLE, player_on.position), :class => "position-select" %>
               <% else %>
                 <%= POSITION_GK %>
               <% end %>
             </td>
             <td>
-              <%= player_on.player != nil ? player_on.player.get_name : "-----" %>
+              <%= select_tag "player_" + player_on.id.to_s, options_for_select(@player_list, player_on.player != nil ? player_on.player.id : nil ), :class => "player-select" %>
             </td>
           </tr>
         <% end %>
@@ -63,7 +63,7 @@
               <%= POSITION_SUB %>
             </td>
             <td>
-              <%= player_sub.player != nil ? player_sub.player.get_name : "-----" %>
+              <%= select_tag "player_" + player_sub.id.to_s, options_for_select(@player_list, player_sub.player != nil ? player_sub.player.id : nil ), :class => "player-select" %>
             </td>
           </tr>
         <% end %>

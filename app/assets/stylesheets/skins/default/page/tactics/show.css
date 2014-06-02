@@ -1,0 +1,29 @@
+.player-detail {
+    width: 500px;
+}
+
+.player-detail,
+.player-detail * {
+    white-space: nowrap;
+}
+
+.player-detail > div {
+    display: inline-block;
+}
+
+.player-detail > div:first-of-type { // info
+    width: 500px;
+    border:solid;
+}
+
+.player-detail > div:first-of-type > * {
+    margin-right: 20px;
+}
+
+.player-detail > div:last-of-type { // atts
+}
+
+.player-detail > div:last-of-type > * {
+    width: 30px;
+    text-align: center;
+}
