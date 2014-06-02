@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20140530103456) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "country_coef_qualyfications", :force => true do |t|
+  create_table "country_coef_qualifications", :force => true do |t|
     t.integer  "position",                           :null => false
     t.integer  "teams_champions_cup", :default => 0, :null => false
     t.datetime "created_at",                         :null => false
