@@ -11,6 +11,15 @@ module ApplicationHelper
     page_not_found
   end
   
+  def filter_by_current_user_team(team)
+    if team == nil || team.user != current_user
+      Rails.logger.warning("filtered by filter_by_current_user_team (" + team.to_s + ")")
+      page_not_found
+    else
+      return team
+    end
+  end
+  
   # Checks asset existency. If something fails (e.g. asset doesnt exist),
   # returns false.
   def check_asset_existency(asset)

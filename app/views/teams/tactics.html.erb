@@ -1,0 +1,28 @@
+<div class="table-wrapper standard">
+  <table class="tactics">
+    <thead>
+      <tr>
+        <td colspan="2"><%= I18n.t("messages.teams.tactics.table_title") %></td>
+      </tr>
+      <tr>
+        <td><%= I18n.t("messages.teams.tactics.table_1") %></td>
+        <td><%= I18n.t("messages.teams.tactics.table_2") %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% for tactics in @tactics %>
+        <tr>
+          <td><%= link_to tactics.name, tactics %></td>
+          <td><%= tactics.priority %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">
+          <%= link_to I18n.t("messages.teams.tactics.create_new"), { :controller => "tactics", :action => :create, :team_id => params[:id] }, :method => :post, :class => "btn" %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

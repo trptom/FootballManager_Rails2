@@ -11,4 +11,9 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @players = @team.players
   end
+  
+  def tactics
+    @team = filter_by_current_user_team(Team.find(params[:id]))
+    @tactics = @team.tactics
+  end
 end

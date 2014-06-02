@@ -93,6 +93,13 @@ cs:
         table_comments_title: Komentáře
         min: minuta
         auto_refresh: Automaticky obnovovat stránku
+        
+    teams:
+      tactics:
+        table_title: Seznam taktik
+        table_1: Název
+        table_2: Priorita
+        create_new: Vytvořit novou taktiku
   
   leagues:
     CC: Liga mistrů

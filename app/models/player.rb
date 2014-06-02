@@ -7,8 +7,9 @@ class Player < ActiveRecord::Base
   
   belongs_to :country
   belongs_to :team
-  has_many :player_stats
-  has_many :game_players
+  has_many :player_stats, dependent: :destroy
+  has_many :tactics_players, dependent: :destroy
+  has_many :game_players, dependent: :destroy
   
   def get_position
     if gk == PLAYER_POSITION_MAX

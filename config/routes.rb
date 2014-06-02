@@ -31,6 +31,7 @@ FMRails::Application.routes.draw do
   resources :teams do
     member do
       get :squad
+      get :tactics
     end
   end
   
@@ -38,6 +39,9 @@ FMRails::Application.routes.draw do
     collection do
       get :stats
     end
+  end
+  
+  resources :tactics do
   end
   
   get "oauths/oauth"

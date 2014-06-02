@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140530082216) do
+ActiveRecord::Schema.define(:version => 20140530103456) do
 
   create_table "actions", :force => true do |t|
     t.text     "content",    :null => false
@@ -274,6 +274,31 @@ ActiveRecord::Schema.define(:version => 20140530082216) do
   end
 
   add_index "stadium_stands", ["stadium_id"], :name => "index_stadium_stands_on_stadium_id"
+
+  create_table "tactics", :force => true do |t|
+    t.integer  "team_id",                        :null => false
+    t.integer  "priority",       :default => 0,  :null => false
+    t.string   "name",                           :null => false
+    t.integer  "style",          :default => 50, :null => false
+    t.integer  "passing",        :default => 50, :null => false
+    t.integer  "shooting",       :default => 50, :null => false
+    t.integer  "aggressiveness", :default => 50, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "tactics", ["team_id"], :name => "index_tactics_on_team_id"
+
+  create_table "tactics_players", :force => true do |t|
+    t.integer  "tactics_id", :null => false
+    t.integer  "player_id"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tactics_players", ["player_id"], :name => "index_tactics_players_on_player_id"
+  add_index "tactics_players", ["tactics_id"], :name => "index_tactics_players_on_tactics_id"
 
   create_table "team_coefs", :force => true do |t|
     t.integer  "team_id",                     :null => false

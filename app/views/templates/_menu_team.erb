@@ -1,15 +1,16 @@
 <ul class="dropdown-menu">
   <li>
-    <%= link_to I18n.t("messages.menu.team_squad"), "/" %>
-    <%# TODO squad of team%>
+    <%= link_to I18n.t("messages.menu.team_squad"), "/teams/" + team.id.to_s + "/squad" %>
   </li>
-  <li>
-    <%= link_to I18n.t("messages.menu.team_tactics"), "/" %>
-    <%# TODO tactics of team%>
-  </li>
-  <li class="divider"></li>
-  <li>
-    <%= link_to I18n.t("messages.menu.team_finance"), "/" %>
-    <%# TODO finance of team%>
-  </li>
+  <% if (current_user != nil && current_user.id == team.user_id) %>
+    <li class="divider"></li>
+    <li>
+      <%= link_to I18n.t("messages.menu.team_tactics"), "/teams/" + team.id.to_s + "/tactics" %>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <%= link_to I18n.t("messages.menu.team_finance"), "/" %>
+      <%# TODO finance of team%>
+    </li>
+  <% end %>
 </ul>

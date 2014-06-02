@@ -1,0 +1,73 @@
+<div class="tactics">
+  <div class="table-wrapper standard">
+    <table>
+      <thead>
+        <tr>
+          <td colspan="5"><%= I18n.t("messages.tactics.show.base_settings") %></td>
+        </tr>
+        <tr>
+          <td><%= I18n.t("messages.leagues.show.table_settings_1") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_settings_2") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= I18n.t "messages.leagues.show.style" %></td>
+          <td><%= @tactics.style %></td>
+        </tr>
+        <tr>
+          <td><%= I18n.t "messages.leagues.show.shooting" %></td>
+          <td><%= @tactics.shooting %></td>
+        </tr>
+        <tr>
+          <td><%= I18n.t "messages.leagues.show.passing" %></td>
+          <td><%= @tactics.passing %></td>
+        </tr>
+        <tr>
+          <td><%= I18n.t "messages.leagues.show.aggressiveness" %></td>
+          <td><%= @tactics.aggressiveness %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="table-wrapper standard">
+    <table>
+      <thead>
+        <tr>
+          <td colspan="5"><%= I18n.t("messages.tactics.show.base_squad") %></td>
+        </tr>
+        <tr>
+          <td><%= I18n.t("messages.leagues.show.table_squad_1") %></td>
+          <td><%= I18n.t("messages.leagues.show.table_squad_2") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for player_on in @players[:on] %>
+          <tr class="<%= player_on == @players[:on].last ? "last" : "" %>">
+            <td>
+              <% if player_on.position != POSITION_ID[POSITION_GK] %>
+                <%= select_tag "position_" + player_on.id.to_s, options_for_select(POSITIONS_SELECTABLE, player_on.position) %>
+              <% else %>
+                <%= POSITION_GK %>
+              <% end %>
+            </td>
+            <td>
+              <%= player_on.player != nil ? player_on.player.get_name : "-----" %>
+            </td>
+          </tr>
+        <% end %>
+        <% for player_sub in @players[:substitutors] %>
+          <tr>
+            <td>
+              <%= POSITION_SUB %>
+            </td>
+            <td>
+              <%= player_sub.player != nil ? player_sub.player.get_name : "-----" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
