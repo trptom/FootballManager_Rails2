@@ -1,30 +1,40 @@
 <div class="tactics">
+  <div id="hidden-data-players" class="hidden">
+    <% for p in @player_list %>
+      <%= p[1] %>,<%= p[0] %>;
+    <%end%>
+  </div>
+  <div id="hidden-data-positions" class="hidden">
+    <% for pos_on in @players[:on] %>
+      <%= pos_on.id %>,<%= pos_on.position %>,<%= pos_on.player_id %>;
+    <%end%>
+    <% for pos_sub in @players[:substitutors] %>
+      <%= pos_sub.id %>,<%= pos_sub.position %>,<%= pos_sub.player_id %>;
+    <%end%>
+  </div>
+  
   <div class="table-wrapper standard">
     <table>
       <thead>
         <tr>
-          <td colspan="5"><%= I18n.t("messages.tactics.show.base_settings") %></td>
-        </tr>
-        <tr>
-          <td><%= I18n.t("messages.leagues.show.table_settings_1") %></td>
-          <td><%= I18n.t("messages.leagues.show.table_settings_2") %></td>
+          <td colspan="2"><%= I18n.t("messages.tactics.show.base_settings") %></td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><%= I18n.t "messages.leagues.show.style" %></td>
+          <td><%= I18n.t "messages.tactics.show.style" %></td>
           <td><%= @tactics.style %></td>
         </tr>
         <tr>
-          <td><%= I18n.t "messages.leagues.show.shooting" %></td>
+          <td><%= I18n.t "messages.tactics.show.shooting" %></td>
           <td><%= @tactics.shooting %></td>
         </tr>
         <tr>
-          <td><%= I18n.t "messages.leagues.show.passing" %></td>
+          <td><%= I18n.t "messages.tactics.show.passing" %></td>
           <td><%= @tactics.passing %></td>
         </tr>
         <tr>
-          <td><%= I18n.t "messages.leagues.show.aggressiveness" %></td>
+          <td><%= I18n.t "messages.tactics.show.aggressiveness" %></td>
           <td><%= @tactics.aggressiveness %></td>
         </tr>
       </tbody>
@@ -32,39 +42,28 @@
   </div>
   
   <div class="table-wrapper standard">
-    <table>
+    <table id="players" class="players">
       <thead>
         <tr>
-          <td colspan="5"><%= I18n.t("messages.tactics.show.base_squad") %></td>
-        </tr>
-        <tr>
-          <td><%= I18n.t("messages.leagues.show.table_squad_1") %></td>
-          <td><%= I18n.t("messages.leagues.show.table_squad_2") %></td>
+          <td onclick="Tactics.Show.sort()"><%= I18n.t("messages.tactics.show.table_players_1") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_2") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_3") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_4") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_5") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_6") %></td>
         </tr>
       </thead>
       <tbody>
-        <% for player_on in @players[:on] %>
-          <tr class="<%= player_on == @players[:on].last ? "last" : "" %>">
-            <td>
-              <% if player_on.position != POSITION_ID[POSITION_GK] %>
-                <%= select_tag "position_" + player_on.id.to_s, options_for_select(POSITIONS_SELECTABLE, player_on.position), :class => "position-select" %>
-              <% else %>
-                <%= POSITION_GK %>
-              <% end %>
-            </td>
-            <td>
-              <%= select_tag "player_" + player_on.id.to_s, options_for_select(@player_list, player_on.player != nil ? player_on.player.id : nil ), :class => "player-select" %>
-            </td>
-          </tr>
-        <% end %>
-        <% for player_sub in @players[:substitutors] %>
+        <% for player in @team.players %>
           <tr>
             <td>
-              <%= POSITION_SUB %>
+              <%= select_tag "p_position_#{player.id}", options_for_select(@positions), :class => "player-position-select", :onchange => "Tactics.Show.playerPositionChanged(#{player.id}, this)" %>
             </td>
-            <td>
-              <%= select_tag "player_" + player_sub.id.to_s, options_for_select(@player_list, player_sub.player != nil ? player_sub.player.id : nil ), :class => "player-select" %>
-            </td>
+            <td><%= player.get_name %></td>
+            <td><%= player.gk.round %></td>
+            <td><%= player.deff.round %></td>
+            <td><%= player.mid.round %></td>
+            <td><%= player.att.round %></td>
           </tr>
         <% end %>
       </tbody>

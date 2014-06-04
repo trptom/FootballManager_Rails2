@@ -27,3 +27,11 @@
     width: 30px;
     text-align: center;
 }
+
+.player-position-select {
+    width: 100px;
+}
+
+.player-position-select > div {
+    white-space: nowrap;
+}

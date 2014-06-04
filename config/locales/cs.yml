@@ -101,6 +101,24 @@ cs:
         table_1: Název
         table_2: Priorita
         create_new: Vytvořit novou taktiku
+        
+    tactics:
+      show:
+        no_player: Hráč nevybrán
+        base_settings: Základní nastavení
+        style: Herní styl
+        shooting: Střelba
+        passing: Přihrávky
+        aggressiveness: Agresivita
+        base_squad: Sestava
+        table_squad_1: Pozice
+        table_squad_2: Hráč
+        table_players_1: Pozice
+        table_players_2: Hráč
+        table_players_3: Chytání
+        table_players_4: Obrana
+        table_players_5: Záloha
+        table_players_6: Útok
   
   leagues:
     CC: Liga mistrů

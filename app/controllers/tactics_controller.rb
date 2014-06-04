@@ -3,11 +3,13 @@ class TacticsController < ApplicationController
     @tactics = Tactics.find(params[:id])
     @team = filter_by_current_user_team(@tactics.team)
     
+    # list of currently selected players
     @players = {
       :on => @tactics.tactics_players.players_on,
       :substitutors => @tactics.tactics_players.players_sub
     }
     
+    # set list of players for select
     @player_list = @team.players.map{ |p| [ p.get_name, p.id, {
       :'data-name' => p.get_name,
       :'data-flag' => p.country.get_flag_url(FLAGS_SMALL),
@@ -18,6 +20,16 @@ class TacticsController < ApplicationController
       :'data-mid' => p.mid,
       :'data-att' => p.att
     } ] }
+
+    @player_list << [
+      I18n.t("messages.tactics.show.no_player"),
+      -1,
+      {
+        :'data-name' => I18n.t("messages.tactics.show.no_player")
+      }
+    ]
+
+    @positions = (-1..(@tactics.tactics_players.count-1)).to_a
   end
   
   def create
