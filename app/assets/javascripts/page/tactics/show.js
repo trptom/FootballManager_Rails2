@@ -35,6 +35,7 @@ function Position(id, position, player) {
 Tactics.Show = {
     players: [],
     positions: [],
+    positionStrings: [],
     
     formatPosFunc: function(o) {
         var ret = document.createElement("div");
@@ -100,16 +101,13 @@ Tactics.Show = {
         var ret = document.createElement("div");
         $(ret).addClass("player-position");
         
-        if (pos === -1) {
-            ret.innerHTML = "";
-        } else {
-            console.log("val = " + $(o.element).val());
-            var player = null;
-            try {
-                var player = this.positions[pos].player;
-            } catch (ex) {}
-
-            ret.innerHTML = pos + (player ? (" - " + player.p_name) : "");
+        console.log(pos);
+        
+        ret.innerHTML = pos >= 0 ? this.positionStrings[this.positions[pos].position] : "";
+        
+        if (pos >= 0 && this.positions[pos].player !== null) {
+            $(ret).addClass("disabled");
+            ret.title = this.positions[pos].player;
         }
         
         return ret;
@@ -118,6 +116,7 @@ Tactics.Show = {
     parseHiddenData: function() {
         var dataPlayers = $("#hidden-data-players").html();
         var dataPositions = $("#hidden-data-positions").html();
+        var dataPositionStrings = $("#hidden-data-position-strings").html();
         
         dataPlayers = dataPlayers.replace(/$[ \n]+/g, "").replace(/[ \n]+;[ \n]+/g, ";").split(";");
         for (var a=0; a<dataPlayers.length; a++) {
@@ -125,7 +124,15 @@ Tactics.Show = {
             if (tmp.length === 2) {
                 var p = new Player(parseInt(tmp[0], 10), tmp[1]);
                 this.players[this.players.length] = p;
-                console.log(p);
+            }
+        }
+        
+        dataPositionStrings = dataPositionStrings.replace(/$[ \n]+/g, "").replace(/[ \n]+;[ \n]+/g, ";").split(";");
+        this.positionStrings[-1] = "";
+        for (var a=0; a<dataPositionStrings.length; a++) {
+            var tmp = dataPositionStrings[a].split(",");
+            if (tmp.length === 2) {
+                this.positionStrings[parseInt(tmp[0], 10)] = tmp[1];
             }
         }
         
@@ -136,12 +143,10 @@ Tactics.Show = {
                 case 2:
                     var p = new Position(parseInt(tmp[0], 10), parseInt(tmp[1], 10), this.players[0]);
                     this.positions[this.positions.length] = p;
-                    console.log(p);
                     break;
                 case 3:
-                    var p = new Position(parseInt(tmp[0], 10), parseInt(tmp[1], 10), this.players[0]/*this.getPlayerById(parseInt(tmp[2], 10))*/);
+                    var p = new Position(parseInt(tmp[0], 10), parseInt(tmp[1], 10), this.getPlayerById(parseInt(tmp[2], 10)));
                     this.positions[this.positions.length] = p;
-                    console.log(p);
                     break;
                 default:
                     break;
@@ -177,7 +182,7 @@ Tactics.Show = {
         return null;
     },
     
-    getPositionNumberByPlayer: function(playerId) {
+    getPositionByNumber: function(number) {
         for (var a=0; a<this.positions.length; a++) {
             if (this.positions[a].player !== null &&
                     this.positions[a].player.id === playerId) {
@@ -195,95 +200,53 @@ Tactics.Show = {
     },
     
     playerPositionChanged: function(playerId, selectElement) {
-        var pos = this.positions[selectElement.value];
-        var player = this.getPlayerById(playerId);        
+        var pos1 = this.getPositionByPlayer(playerId);
+        if (pos1 !== null) {
+            pos1.player = null;
+        }
         
-        pos.player = player;
+        if (selectElement.value >= 0) {
+            var pos2 = this.positions[selectElement.value];
+            var player = this.getPlayerById(playerId);        
+            
+            pos2.player = player;
+        }
+        
+        this.sort();
     },
     
     sort: function() {
         var table = document.getElementById("players").getElementsByTagName("tbody")[0];
         var rows = [];
+        console.log("cnl=" + table.childNodes.length);
         while (table.childNodes.length > 0) {
-            rows[rows.length] = {
-                val: $(table.lastChild.getElementsByTagName("select")[0]).val(),
-                item: table.lastChild
-            };
-            
-            for (var a=rows.length-1; a>0; a--){
-                if (rows[a].val < rows[a-1].val) {
-                    var tmp = rows[a];
-                    rows[a] = rows[a-1];
-                    rows[a-1] = tmp;
+            console.log("tn=" + table.firstChild.tagName);
+            if (table.firstChild.tagName &&
+                    table.firstChild.tagName.toUpperCase() === "TR") {
+                rows[rows.length] = {
+                    val: parseInt($(table.firstChild.getElementsByTagName("select")[0]).val(), 10),
+                    item: table.firstChild
+                };
+                
+                console.log("val = " + rows[rows.length-1].val);
+
+                for (var a=rows.length-1; a>0; a--){
+                    if ((rows[a].val >= 0 && rows[a-1].val < 0) || (rows[a].val >= 0 && rows[a].val < rows[a-1].val)) {
+                        var tmp = rows[a];
+                        rows[a] = rows[a-1];
+                        rows[a-1] = tmp;
+                    } else{
+                        break;
+                    }
                 }
             }
             
-            table.removeChild(table.lastChild);
+            table.removeChild(table.firstChild);
         }
         
         for (var a=0; a<rows.length; a++) {
-            table.appendChild(rows[a]);
+            table.appendChild(rows[a].item);
         }
-//        
-//        var rows = [];
-//        $("#players tbody tr").each(function(elem){
-//            rows[rows.length] = elem;
-//            table.removeChild
-//        });
-//        
-//        $("#players").each(function() {
-//            var _this = $(this);
-//            var newrows = [];
-//            _this.find("tbody tr").each(function(){
-//                var i = 0;
-//                $(this).find("td").each(function(){
-//                    i++;
-//                    if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
-//                    newrows[i].append($(this));
-//                });
-//            });
-//            $this.find("tr").remove();
-//            $.each(newrows, function(){
-//                $this.append(this);
-//            });
-//        });
-        
-//        $("#players tbody").each(function(elem, index) {
-//            var arr = $.makeArray($("tr", elem).detach());
-//            arr.reverse();
-//            $(elem).append(arr);
-//        });
-//        var rows = document.getElementById("players").rows;
-//        var newRows = [];
-//        
-//        newRows[0] = rows[0]
-//        for (var a=1; a<rows.length; a++) {
-//            newRows[rows.length-a] = rows[a];
-//        }
-//        
-//        document.getElementById("players").rows = newRows;
-        
-//        var rows = tbody.rows,
-//            rlen = rows.length,
-//            arr = new Array(),
-//            i, j, cells, clen;
-//        // fill the array with values from the table
-//        for (i = 0; i < rlen; i++) {
-//            cells = rows[i].cells;
-//            clen = cells.length;
-//            arr[i] = new Array();
-//            for (j = 0; j < clen; j++) {
-//                arr[i][j] = cells[j].innerHTML;
-//            }
-//        }
-//        // sort the array by the specified column number (col) and order (asc)
-//        arr.sort(function (a, b) {
-//            return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
-//        });
-//        // replace existing rows with new rows created from the sorted array
-//        for (i = 0; i < rlen; i++) {
-//            rows[i].innerHTML = "<td>" + arr[i].join("</td><td>") + "</td>";
-//        }
     }
 };
 

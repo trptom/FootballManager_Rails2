@@ -120,12 +120,6 @@ cs:
         table_players_5: Záloha
         table_players_6: Útok
   
-    tactics:
-      show:
-        table_squad_title: Soupiska
-        table_squad_1: Pozice
-        table_squad_2: Hráči
-  
   leagues:
     CC: Liga mistrů
     CCQUAL: Liga mistrů - kvalifikace

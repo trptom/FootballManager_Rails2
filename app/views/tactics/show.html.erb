@@ -4,6 +4,11 @@
       <%= p[1] %>,<%= p[0] %>;
     <%end%>
   </div>
+  <div id="hidden-data-position-strings" class="hidden">
+    <% for pos in POSITIONS %>
+      <%= pos[1] %>,<%= pos[0] %>;
+    <%end%>
+  </div>
   <div id="hidden-data-positions" class="hidden">
     <% for pos_on in @players[:on] %>
       <%= pos_on.id %>,<%= pos_on.position %>,<%= pos_on.player_id %>;
