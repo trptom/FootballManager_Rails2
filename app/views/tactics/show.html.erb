@@ -47,10 +47,40 @@
   </div>
   
   <div class="table-wrapper standard">
+    <table id="lineup" class="lineup">
+      <thead>
+        <tr>
+          <td colspan="2"><%= I18n.t("messages.tactics.show.lineup") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= I18n.t("messages.tactics.show.set_lineup") %></td>
+          <td>
+            <%= select_tag "predefined-lineups", options_for_select(@lineups), :class => "predefined-lineups" %>
+            <input type="button"
+                   onclick="Tactics.Show.changeLineup();"
+                   value="<%= I18n.t("messages.tactics.show.change_lineup") %>" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div id="pitch">
+              <% for a in 0..10 %>
+                <div id="pitch-player-<%= a %>" class="pitch-player"></div>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="table-wrapper standard">
     <table id="players" class="players">
       <thead>
         <tr>
-          <td onclick="Tactics.Show.sort()"><%= I18n.t("messages.tactics.show.table_players_1") %></td>
+          <td><%= I18n.t("messages.tactics.show.table_players_1") %></td>
           <td><%= I18n.t("messages.tactics.show.table_players_2") %></td>
           <td><%= I18n.t("messages.tactics.show.table_players_3") %></td>
           <td><%= I18n.t("messages.tactics.show.table_players_4") %></td>

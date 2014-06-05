@@ -33,6 +33,24 @@ function Position(id, position, player) {
  * @type type
  */
 Tactics.Show = {
+    PLAYER_POSITION: {
+        POS: {
+            1: 10, // GK
+            2: 25, // D
+            3: 40, // DM
+            4: 55, // M
+            5: 70, // AM
+            6: 85 // S
+        },
+        SIDE: {
+            0: 20, // L
+            1: 40, // LC
+            2: 50, // C
+            3: 60, // RC
+            4: 80 // R
+        }
+    },
+    
     players: [],
     positions: [],
     positionStrings: [],
@@ -46,52 +64,6 @@ Tactics.Show = {
         
         ret.appendChild(ret.img);
         ret.appendChild(ret.tit);
-        
-        return ret;
-    },
-    
-    formatPlayerFunc: function(o) {
-        var ret = document.createElement("div");
-        $(ret).addClass("player-detail");
-        
-        if ($(o.element).val() > 0) {
-            ret.info = document.createElement("div");
-            ret.atts = document.createElement("div");
-
-            ret.name = document.createElement("span");
-            ret.nation = document.createElement("img");
-            ret.age = document.createElement("span");
-            ret.gk = document.createElement("span");
-            ret.def = document.createElement("span");
-            ret.mid = document.createElement("span");
-            ret.att = document.createElement("span");
-
-            ret.name.innerHTML = $(o.element).data('name');
-            ret.nation.src = $(o.element).data('flag');
-            ret.age.innerHTML = "(" + $(o.element).data('age') + ")";
-
-            ret.gk.innerHTML = $(o.element).data('gk');
-            ret.def.innerHTML = $(o.element).data('def');
-            ret.mid.innerHTML = $(o.element).data('mid');
-            ret.att.innerHTML = $(o.element).data('att');
-
-            ret.appendChild(ret.info);
-            ret.appendChild(ret.atts);
-
-            ret.info.appendChild(ret.nation);
-            ret.info.appendChild(ret.name);
-            ret.info.appendChild(ret.age);
-            ret.atts.appendChild(ret.gk);
-            ret.atts.appendChild(ret.def);
-            ret.atts.appendChild(ret.mid);
-            ret.atts.appendChild(ret.att);
-        } else {
-            ret.info = document.createElement("div");
-            ret.name = document.createElement("span");
-            ret.name.innerHTML = $(o.element).data('name');
-            ret.appendChild(ret.info);
-            ret.info.appendChild(ret.name);
-        }
         
         return ret;
     },
@@ -185,18 +157,11 @@ Tactics.Show = {
     getPositionByNumber: function(number) {
         for (var a=0; a<this.positions.length; a++) {
             if (this.positions[a].player !== null &&
-                    this.positions[a].player.id === playerId) {
+                    this.positions[a].player.id === number) {
                 return a;
             }
         }
         return null;
-    },
-    
-    playerChanged: function(posId, playerSelect) {
-        var pos = this.getPositionById(posId);
-        var player = this.getPlayerById(playerSelect.value);
-        
-        pos.player = player;
     },
     
     playerPositionChanged: function(playerId, selectElement) {
@@ -213,6 +178,7 @@ Tactics.Show = {
         }
         
         this.sort();
+        this.updatePitchPlayers();
     },
     
     sort: function() {
@@ -247,6 +213,54 @@ Tactics.Show = {
         for (var a=0; a<rows.length; a++) {
             table.appendChild(rows[a].item);
         }
+    },
+    
+    changeLineup: function() {
+        var lineupVal = $("#predefined-lineups").val();
+        
+        if (lineupVal) {
+            var lineup = lineupVal.split(",");
+            for (var a=0; a<lineup.length; a++) {
+                console.log("lineup[a] = " + parseInt(lineup[a], 10));
+                this.positions[a].position = parseInt(lineup[a], 10);
+            }
+        }
+        
+        this.updatePitchPlayers();
+    },
+    
+    updatePitchPlayers: function() {
+        var pitch = $("#pitch");
+        var w = pitch.outerWidth();
+        var h = pitch.outerHeight();
+        
+        for (var a=0; a<11; a++) {
+            var elem = $("#pitch-player-"+a);
+            
+            elem.html( this.positionStrings[this.positions[a].position]
+                    + (this.positions[a].player ? " - " + this.positions[a].player.p_name : ""));
+            
+            var y;
+            var x;
+            
+            if (this.positions[a].position === 1) { // special for goalkeeper
+                y = this.PLAYER_POSITION.POS[1];
+                x = this.PLAYER_POSITION.SIDE[2];
+            } else {
+                y = this.PLAYER_POSITION.POS[Math.floor(this.positions[a].position / 10)];
+                x = this.PLAYER_POSITION.SIDE[Math.floor(this.positions[a].position % 10)];
+            }
+            
+            var left = Math.round(w * x / 100) - (elem.outerWidth() / 2);
+            var top = Math.round(h * (100 - y) / 100) - (elem.outerHeight() / 2);
+            
+            console.log("left=" + left + "; top=" + top + "; player=" + this.positions[a].player);
+            
+            elem.css({
+                left: left,
+                top: top
+            });
+        }
     }
 };
 
@@ -259,16 +273,15 @@ $(document).ready(function() {
         formatSelection: function(o) { return Tactics.Show.formatPosFunc(o); },
         escapeMarkup: function(m) { return m; }
     });
-    $(".player-select").select2({
-        minimumResultsForSearch: -1,
-        formatResult: function(o) { return Tactics.Show.formatPlayerFunc(o); },
-        formatSelection: function(o) { return Tactics.Show.formatPlayerFunc(o); },
-        escapeMarkup: function(m) { return m; }
-    });
     $(".player-position-select").select2({
         minimumResultsForSearch: -1,
         formatResult: function(o) { return Tactics.Show.formatPlayerPositionFunc(o); },
         formatSelection: function(o) { return Tactics.Show.formatPlayerPositionFunc(o); },
         escapeMarkup: function(m) { return m; }
     });
+    $("#predefined-lineups").select2({
+        minimumResultsForSearch: -1
+    });
+    
+    Tactics.Show.updatePitchPlayers();
 });

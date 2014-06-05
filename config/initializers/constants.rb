@@ -129,6 +129,75 @@ DEFAULT_TACTICS_POSITIONS = [
   POSITION_ID[POSITION_SUB]
 ]
 
+# allowed lineups
+LINEUPS = [
+  {
+    :name => "4-4-2",
+    :positions => [
+      POSITION_ID[POSITION_GK],
+      POSITION_ID[POSITION_D_L],
+      POSITION_ID[POSITION_D_LC],
+      POSITION_ID[POSITION_D_RC],
+      POSITION_ID[POSITION_D_R],
+      POSITION_ID[POSITION_M_L],
+      POSITION_ID[POSITION_M_LC],
+      POSITION_ID[POSITION_M_RC],
+      POSITION_ID[POSITION_M_R],
+      POSITION_ID[POSITION_S_LC],
+      POSITION_ID[POSITION_S_RC]
+    ]
+  },
+  {
+    :name => "4-5-1",
+    :positions => [
+      POSITION_ID[POSITION_GK],
+      POSITION_ID[POSITION_D_L],
+      POSITION_ID[POSITION_D_LC],
+      POSITION_ID[POSITION_D_RC],
+      POSITION_ID[POSITION_D_R],
+      POSITION_ID[POSITION_M_L],
+      POSITION_ID[POSITION_M_LC],
+      POSITION_ID[POSITION_M_C],
+      POSITION_ID[POSITION_M_RC],
+      POSITION_ID[POSITION_M_R],
+      POSITION_ID[POSITION_S_C]
+    ]
+  },
+  {
+    :name => "3-5-2",
+    :positions => [
+      POSITION_ID[POSITION_GK],
+      POSITION_ID[POSITION_D_LC],
+      POSITION_ID[POSITION_D_C],
+      POSITION_ID[POSITION_D_RC],
+      POSITION_ID[POSITION_M_L],
+      POSITION_ID[POSITION_M_LC],
+      POSITION_ID[POSITION_M_C],
+      POSITION_ID[POSITION_M_RC],
+      POSITION_ID[POSITION_M_R],
+      POSITION_ID[POSITION_S_LC],
+      POSITION_ID[POSITION_S_RC]
+    ]
+  },
+  {
+    :name => "4-3-3",
+    :positions => [
+      POSITION_ID[POSITION_GK],
+      POSITION_ID[POSITION_D_L],
+      POSITION_ID[POSITION_D_LC],
+      POSITION_ID[POSITION_D_RC],
+      POSITION_ID[POSITION_D_R],
+      POSITION_ID[POSITION_M_LC],
+      POSITION_ID[POSITION_M_C],
+      POSITION_ID[POSITION_M_RC],
+      POSITION_ID[POSITION_S_LC],
+      POSITION_ID[POSITION_S_C],
+      POSITION_ID[POSITION_S_RC]
+    ]
+  }
+]
+
+# other useful constants
 DEFAULT_LEAGUE_AGAINST = 2 # default number of games each to each in standard league (when not changed in league.type_data)
 ROUND_BARAGE_BASE = 10000 # id of barage game round. each id is specific by from_pos, e.g. if from_pos is 2, id is 10002
 COEF_COUNT_YEARS = 5 # number of last seasons counted into coefficients

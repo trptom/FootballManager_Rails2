@@ -110,6 +110,9 @@ cs:
         shooting: Střelba
         passing: Přihrávky
         aggressiveness: Agresivita
+        lineup: Rozestavení
+        set_lineup: "Nastavení rozestavení:"
+        change_lineup: Upravit
         base_squad: Sestava
         table_squad_1: Pozice
         table_squad_2: Hráč

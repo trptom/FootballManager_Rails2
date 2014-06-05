@@ -30,6 +30,9 @@ class TacticsController < ApplicationController
     ]
 
     @positions = (-1..(@tactics.tactics_players.count-1)).to_a
+    
+    @lineups = LINEUPS.map{ |l| [ l[:name], l[:positions].join(",")] }
+    @lineups.unshift(["", ""])
   end
   
   def create

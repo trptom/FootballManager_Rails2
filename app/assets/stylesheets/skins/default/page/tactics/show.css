@@ -1,37 +1,26 @@
-.player-detail {
-    width: 500px;
-}
-
-.player-detail,
-.player-detail * {
-    white-space: nowrap;
-}
-
-.player-detail > div {
-    display: inline-block;
-}
-
-.player-detail > div:first-of-type { // info
-    width: 500px;
-    border:solid;
-}
-
-.player-detail > div:first-of-type > * {
-    margin-right: 20px;
-}
-
-.player-detail > div:last-of-type { // atts
-}
-
-.player-detail > div:last-of-type > * {
-    width: 30px;
-    text-align: center;
-}
-
 .player-position-select {
     width: 100px;
 }
 
-.player-position-select > div {
-    white-space: nowrap;
+.player-position.disabled {
+    color: #aaaaaa;
+}
+
+.predefined-lineups {
+    width: 150px;
+}
+
+#pitch {
+    margin: 20px;
+    border: solid #000000 1px;
+    background-color: #00aa00;
+    height: 200px;
+    position: relative;
+}
+
+#pitch .pitch-player {
+    position: absolute;
+    padding: 5px;
+    background-color: #ffffff;
+    border: solid #000000 1px;
 }
