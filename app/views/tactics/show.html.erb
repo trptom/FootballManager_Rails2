@@ -102,6 +102,15 @@
           </tr>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            <input type="button"
+                   onclick="Tactics.Show.save(<%= params[:id] %>);"
+                   value="<%= I18n.t("messages.tactics.show.submit") %>" />
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

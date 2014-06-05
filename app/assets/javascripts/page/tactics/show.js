@@ -111,7 +111,7 @@ Tactics.Show = {
             var tmp = dataPositions[a].split(",");
             switch (tmp.length) {
                 case 2:
-                    var p = new Position(parseInt(tmp[0], 10), parseInt(tmp[1], 10), this.players[0]);
+                    var p = new Position(parseInt(tmp[0], 10), parseInt(tmp[1], 10), null);
                     this.positions[this.positions.length] = p;
                     break;
                 case 3:
@@ -253,6 +253,49 @@ Tactics.Show = {
                 top: top
             });
         }
+    },
+    
+    save: function(tacticsId) {
+        var preparedData = [];
+        for (var a=0; a<this.positions.length; a++) {
+            preparedData[preparedData.length] = {
+                id: this.positions[a].id,
+                position: this.positions[a].position,
+                player: this.positions[a].player ? this.positions[a].player.id : -1
+            };
+        }
+        console.log(preparedData);
+
+        $.ajax({
+            url: "/tactics/" + tacticsId,
+            type: "PUT",
+            async: true,
+            dataType: "json",
+            
+            data: {
+                positions: preparedData
+            },
+            
+            success: function() {
+                alert("uloženo");
+                // TODO localization and some better dialog box.
+            },
+            
+            error: function() {
+                alert("ukládání se nezdařilo!");
+                // TODO localization and some better dialog box.
+            }
+        });
+    },
+    
+    setLoadedPositions: function() {
+        for (var a=0; a<this.positions.length; a++) {
+            if (this.positions[a].player) {
+                $("#p_position_" + this.positions[a].player.id).select2("val", a);
+            }
+        }
+        
+        this.sort();
     }
 };
 
@@ -275,5 +318,6 @@ $(document).ready(function() {
         minimumResultsForSearch: -1
     });
     
+    Tactics.Show.setLoadedPositions();
     Tactics.Show.updatePitchPlayers();
 });

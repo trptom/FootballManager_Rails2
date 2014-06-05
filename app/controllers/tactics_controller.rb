@@ -48,15 +48,26 @@ class TacticsController < ApplicationController
     end
   end
   
-  def add_player
+  def update
+    @tactics = Tactics.find(params[:id])
+    @res = true
     
-  end
-  
-  def set_player_position
+    if (params[:positions])
+      for pos in params[:positions]
+        data = pos[1]
+        p = @tactics.tactics_players.find(data[:id].to_i)
+        
+        p_id = data[:player].to_i
+        
+        p.player_id = p_id >= 0 ? p_id : nil
+        p.position = data[:position].to_i
+        
+        @res = @res & p.save
+      end
+    end
     
-  end
-  
-  def remove_player
-    
+    render :json => {
+      :result => @res
+    }
   end
 end
