@@ -73,8 +73,6 @@ Tactics.Show = {
         var ret = document.createElement("div");
         $(ret).addClass("player-position");
         
-        console.log(pos);
-        
         ret.innerHTML = pos >= 0 ? this.positionStrings[this.positions[pos].position] : "";
         
         if (pos >= 0 && this.positions[pos].player !== null) {
@@ -184,17 +182,14 @@ Tactics.Show = {
     sort: function() {
         var table = document.getElementById("players").getElementsByTagName("tbody")[0];
         var rows = [];
-        console.log("cnl=" + table.childNodes.length);
+        
         while (table.childNodes.length > 0) {
-            console.log("tn=" + table.firstChild.tagName);
             if (table.firstChild.tagName &&
                     table.firstChild.tagName.toUpperCase() === "TR") {
                 rows[rows.length] = {
                     val: parseInt($(table.firstChild.getElementsByTagName("select")[0]).val(), 10),
                     item: table.firstChild
                 };
-                
-                console.log("val = " + rows[rows.length-1].val);
 
                 for (var a=rows.length-1; a>0; a--){
                     if ((rows[a].val >= 0 && rows[a-1].val < 0) || (rows[a].val >= 0 && rows[a].val < rows[a-1].val)) {
@@ -221,7 +216,6 @@ Tactics.Show = {
         if (lineupVal) {
             var lineup = lineupVal.split(",");
             for (var a=0; a<lineup.length; a++) {
-                console.log("lineup[a] = " + parseInt(lineup[a], 10));
                 this.positions[a].position = parseInt(lineup[a], 10);
             }
         }
@@ -253,8 +247,6 @@ Tactics.Show = {
             
             var left = Math.round(w * x / 100) - (elem.outerWidth() / 2);
             var top = Math.round(h * (100 - y) / 100) - (elem.outerHeight() / 2);
-            
-            console.log("left=" + left + "; top=" + top + "; player=" + this.positions[a].player);
             
             elem.css({
                 left: left,
