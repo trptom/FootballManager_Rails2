@@ -14,27 +14,43 @@ table.info tbody td:nth-of-type(2) {
     text-align: left;
 }
 
-table.info tbody tr:nth-of-type(2) td,
-table.info tbody tr:nth-of-type(3) td {
+table.info tbody tr.score td,
+table.info tbody tr.minute td {
     width: 100%;
     text-align: center;
 }
 
-table.info tbody tr:nth-of-type(1) td {
+table.info tbody tr.teams td {
     padding-top: 10px;
     font-size: 125%;
     font-weight: bold;
     text-align: center;
 }
 
-table.info tbody tr:nth-of-type(2) td {
+table.info tbody tr.score td {
     font-size: 300%;
     font-weight: bold;
     padding: 20px;
 }
 
-table.info tbody tr:nth-of-type(3) td {
+table.info tbody tr.minute td {
     padding-bottom: 30px;
+}
+
+table.info tbody tr.events td:first-of-type {
+    padding-right: 50px;
+}
+
+table.info tbody tr.events td:last-of-type {
+    padding-left: 50px;
+}
+
+table.info tbody tr.events.separator td {
+    padding-bottom: 30px;
+}
+
+table.info tbody tr.after-events td {
+    padding-top: 30px;
 }
 
 table.squads thead td {
@@ -45,7 +61,7 @@ table.squads tbody td:nth-of-type(2) {
     border-right: solid #000000 1px;
 }
 
-table.squads tbody tr.separator td {
+table tbody tr.separator td {
     border-bottom: solid #000000 1px;
 }
 

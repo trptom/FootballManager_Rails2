@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140530103456) do
+ActiveRecord::Schema.define(:version => 20140606110100) do
 
   create_table "actions", :force => true do |t|
     t.text     "content",    :null => false
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20140530103456) do
     t.integer  "game_id",    :null => false
     t.integer  "player_id",  :null => false
     t.integer  "type",       :null => false
+    t.integer  "team"
+    t.integer  "minute",     :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -100,6 +102,19 @@ ActiveRecord::Schema.define(:version => 20140530103456) do
 
   add_index "game_players", ["game_id"], :name => "index_game_players_on_game_id"
   add_index "game_players", ["player_id"], :name => "index_game_players_on_player_id"
+
+  create_table "game_tactics", :force => true do |t|
+    t.integer  "game_id",        :null => false
+    t.integer  "team",           :null => false
+    t.integer  "style",          :null => false
+    t.integer  "passing",        :null => false
+    t.integer  "shooting",       :null => false
+    t.integer  "aggressiveness", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "game_tactics", ["game_id"], :name => "index_game_tactics_on_game_id"
 
   create_table "games", :force => true do |t|
     t.integer  "league_id",                          :null => false

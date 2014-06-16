@@ -51,23 +51,36 @@ class TacticsController < ApplicationController
   def update
     @tactics = Tactics.find(params[:id])
     @res = true
+    @message = nil
     
-    if (params[:positions])
-      for pos in params[:positions]
-        data = pos[1]
-        p = @tactics.tactics_players.find(data[:id].to_i)
+    if @tactics.team.is_playing_game
+      @res = false
+      @message = I18n.t("messages.tactics.update.saved")
+    else
+      if (params[:positions])
+        for pos in params[:positions]
+          data = pos[1]
+          p = @tactics.tactics_players.find(data[:id].to_i)
+
+          p_id = data[:player].to_i
+
+          p.player_id = p_id >= 0 ? p_id : nil
+          p.position = data[:position].to_i
+
+          @res = @res & p.save
+        end
         
-        p_id = data[:player].to_i
-        
-        p.player_id = p_id >= 0 ? p_id : nil
-        p.position = data[:position].to_i
-        
-        @res = @res & p.save
+        if @res
+          @message = I18n.t("messages.tactics.update.saved")
+        else
+          @message = I18n.t("messages.tactics.update.saved")
+        end
       end
     end
     
     render :json => {
-      :result => @res
+      :result => @res,
+      :message => @message
     }
   end
 end

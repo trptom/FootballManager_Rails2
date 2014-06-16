@@ -3,7 +3,9 @@ class CreateGameEvents < ActiveRecord::Migration
     create_table :game_events do |t|
       t.references :game,     :null => false
       t.references :player,   :null => false
-      t.integer :type,        :null => false
+      t.integer :event_type,  :null => false
+      t.integer :team,        :null => true, :default => nil
+      t.integer :minute,      :null => false
 
       t.timestamps
     end

@@ -1,5 +1,5 @@
 class CreateCountryCoefQualifications < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :country_coef_qualifications do |t|
       t.integer :position,              :null => false, :unique => true
       t.integer :teams_champions_cup,   :null => false, :default => 0
@@ -27,5 +27,9 @@ class CreateCountryCoefQualifications < ActiveRecord::Migration
     CountryCoefQualification.new(:position => 18, :teams_champions_cup => 1).save
     CountryCoefQualification.new(:position => 19, :teams_champions_cup => 1).save
     CountryCoefQualification.new(:position => 20, :teams_champions_cup => 1).save
+  end
+  
+  def self.down
+    drop_table :country_coef_qualifications
   end
 end

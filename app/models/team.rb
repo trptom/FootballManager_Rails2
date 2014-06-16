@@ -44,4 +44,20 @@ class Team < ActiveRecord::Base
     
     return ret
   end
+  
+  def is_playing_game
+    return games.where("(start > ?)AND(finished = ?)", DateTime.now, false).count > 0
+  end
+  
+  # Returns all tactics sorted descendently by priority,
+  def get_sorted_tactics
+    return tactics.order("priority DESC")
+  end
+  
+  # Returns primary tactics (highest priority) or nil when no tactics is
+  # created.
+  def get_primary_tactics
+    t = self.get_sorted_tactics
+    return t.count > 0 ? t.first : nil
+  end
 end

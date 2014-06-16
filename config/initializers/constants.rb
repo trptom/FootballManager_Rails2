@@ -65,7 +65,7 @@ POSITION_S_L = "LS"
 POSITION_S_LC = "LCS"
 POSITION_S_C = "CS"
 POSITION_S_RC = "RCS"
-POSITION_S_R = "LS"
+POSITION_S_R = "RS"
 POSITION_SUB = "SUB"
 
 POSITION_ID = {
@@ -98,9 +98,11 @@ POSITION_ID = {
   POSITION_SUB => 100
 }
 
+POSITION_BY_ID = []
 POSITIONS = []
 POSITIONS_SELECTABLE = []
 POSITION_ID.each do |key, value|
+  POSITION_BY_ID[value] = key;
   POSITIONS << [ key, value]
   if (key != POSITION_GK && key != POSITION_SUB)
     POSITIONS_SELECTABLE << [ key, value ]
@@ -197,6 +199,18 @@ LINEUPS = [
   }
 ]
 
+
+# game events
+GAME_EVENT = {
+  :goal => 1,
+  :sub => 2,
+  :yellow => 3,
+  :red => 4,
+  :penalty_yes => 5,
+  :penalty_no => 6,
+  :yellow_red => 7
+}
+
 # other useful constants
 DEFAULT_LEAGUE_AGAINST = 2 # default number of games each to each in standard league (when not changed in league.type_data)
 ROUND_BARAGE_BASE = 10000 # id of barage game round. each id is specific by from_pos, e.g. if from_pos is 2, id is 10002
@@ -220,5 +234,6 @@ AWAY_TEAM_ID = 2 # ID used for away team in game
 SKIN = "default"
 
 # folders
+FOLDER_GAME_EVENTS = "game_events"
 FLAGS = "flags"
 FLAGS_SMALL = File.join(FLAGS, "small")

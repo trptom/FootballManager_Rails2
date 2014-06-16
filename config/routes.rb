@@ -14,6 +14,9 @@ FMRails::Application.routes.draw do
   end
   
   resources :games do
+    collection do
+      get :simulate # TODO remove, just for debugging
+    end
   end
 
   resources :countries do
@@ -42,6 +45,9 @@ FMRails::Application.routes.draw do
   end
   
   resources :tactics do
+  end
+  
+  resources :players do
   end
   
   get "oauths/oauth"

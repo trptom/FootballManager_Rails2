@@ -16,11 +16,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="teams">
           <td><%= @game.team_home.name %></td>
           <td><%= @game.team_away.name %></td>
         </tr>
-        <tr>
+        <tr class="score">
           <td colspan="2">
             <% if @game.started %>
               <%= @game.score_home %>:<%= @game.score_away %>
@@ -30,13 +30,31 @@
           </td>
         </tr>
         <% if @game.started && !@game.finished %>
-          <tr>
+          <tr class="minute">
             <td colspan="2">
               <%= @game.real_min %>. <%= I18n.t "messages.games.show.min" %>
             </td>
           </tr>
         <% end %>
-        <tr>
+        <% for a in 0..@events_length-1 %>
+          <tr class="<%= a == @events_length-1 ? "events separator" : "events" %>">
+            <td>
+              <% if @events[:home].count > a %>
+                <%= image_tag asset_path(File.join(FOLDER_GAME_EVENTS, "#{@events[:home][a].event_type}.png")) %>
+                <%= @events[:home][a].minute %>.
+                <%= link_to @events[:home][a].player.get_name, @events[:home][a].player %>
+              <% end %>
+            </td>
+            <td>
+              <% if @events[:away].count > a %>
+                <%= image_tag asset_path(File.join(FOLDER_GAME_EVENTS, "#{@events[:away][a].event_type}.png")) %>
+                <%= @events[:away][a].minute %>.
+                <%= link_to @events[:away][a].player.get_name, @events[:away][a].player %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="after-events">
           <td>TODO Soutěž</td>
           <td><%= I18n.t LEAGUE_MESSAGES_KEY + @game.league.shortcut %></td>
         </tr>
@@ -76,9 +94,9 @@
       <tbody>
         <% for a in 0..@squad_length-1 %>
           <tr>
-            <td><%= @squad[:home][a] != nil ? @squad[:home][a].position : "" %></td>
+            <td><%= @squad[:home][a] != nil ? POSITION_BY_ID[@squad[:home][a].position] : "" %></td>
             <td><%= @squad[:home][a] != nil ? @squad[:home][a].player.get_name : "" %></td>
-            <td><%= @squad[:away][a] != nil ? @squad[:away][a].position : "" %></td>
+            <td><%= @squad[:away][a] != nil ? POSITION_BY_ID[@squad[:away][a].position] : "" %></td>
             <td><%= @squad[:away][a] != nil ? @squad[:away][a].player.get_name : "" %></td>
           </tr>
         <% end %>
@@ -87,9 +105,9 @@
         
         <% for a in 0..@substitutes_length-1 %>
           <tr>
-            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].position : "" %></td>
+            <td><%= @substitutes[:home][a] != nil ? POSITION_BY_ID[@substitutes[:home][a].position] : "" %></td>
             <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].player.get_name : "" %></td>
-            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].position : "" %></td>
+            <td><%= @substitutes[:away][a] != nil ? POSITION_BY_ID[@substitutes[:away][a].position] : "" %></td>
             <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].player.get_name : "" %></td>
           </tr>
         <% end %>
@@ -107,29 +125,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for a in 0..@squad_length-1 %>
-          <tr>
-            <td><%= @squad[:home][a] != nil ? @squad[:home][a].position : "" %></td>
-            <td><%= @squad[:home][a] != nil ? @squad[:home][a].player.get_name : "" %></td>
-            <td><%= @squad[:away][a] != nil ? @squad[:away][a].position : "" %></td>
-            <td><%= @squad[:away][a] != nil ? @squad[:away][a].player.get_name : "" %></td>
-          </tr>
-        <% end %>
-        
-        <% if @substitutes_length > 0 %>
-          <tr class="separator">
-            <td colspan="4"></td>
-          </tr>
-        <% end %>
-        
-        <% for a in 0..@substitutes_length-1 %>
-          <tr>
-            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].position : "" %></td>
-            <td><%= @substitutes[:home][a] != nil ? @substitutes[:home][a].player.get_name : "" %></td>
-            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].position : "" %></td>
-            <td><%= @substitutes[:away][a] != nil ? @substitutes[:away][a].player.get_name : "" %></td>
-          </tr>
-        <% end %>
+        <%= "TODO comments" %>
       </tbody>
     </table>
   </div>
