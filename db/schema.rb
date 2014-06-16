@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20140606110100) do
   create_table "game_events", :force => true do |t|
     t.integer  "game_id",    :null => false
     t.integer  "player_id",  :null => false
-    t.integer  "type",       :null => false
+    t.integer  "event_type", :null => false
     t.integer  "team"
     t.integer  "minute",     :null => false
     t.datetime "created_at", :null => false

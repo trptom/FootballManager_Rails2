@@ -22,7 +22,7 @@ class GamesController < ApplicationController
   end
   
   def simulate
-    @game = Game.where(:started => false).first
+    @game = Game.where(:started => false).order(:start).first
     
     @game.simulate
   end

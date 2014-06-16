@@ -208,7 +208,10 @@ GAME_EVENT = {
   :red => 4,
   :penalty_yes => 5,
   :penalty_no => 6,
-  :yellow_red => 7
+  :yellow_red => 7,
+  :own_goal => 8,
+  :injury => 9,
+  :light_injury => 10
 }
 
 # other useful constants
