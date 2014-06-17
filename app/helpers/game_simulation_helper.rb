@@ -51,24 +51,27 @@ module GameSimulationHelper
     @strength = nil
     
     # Simple initializator for specific game.
+    # 
+    # ==== Attributes
+    # +game+:: game associated with this simulator.
     def initialize(game)
       @game = game
     end
     
     # Prepares game to can be started.
     #
-    # * tactics are created
-    # * game-player relations are created
-    # * attributes like started and score are changed
+    # - tactics are created
+    # - game-player relations are created
+    # - attributes like started and score are changed
     #
     # This function has no restrictions and controls (e.g. whether game
     # was already prepared) so be careful with using it.
     #
-    # returns: true on success, false when error occured.
+    # ==== Returns
+    # _boolean_:: True on success, false when error occured.
     def prepare
       #create result variable
       res = true
-
       # get tactics for later use
       tactics = [
         @game.team_home.get_primary_tactics,
@@ -98,11 +101,11 @@ module GameSimulationHelper
       return res
     end
     
-    # Simulates all minutes until now which havent been simulated yet.
+    # Simulates all minutes until now which havent been simulated yet. When
+    # game is already finished (e.g. forfeit), nothing is simulated.
     # 
-    # game = game which should be simulated
-    # 
-    # returns: true on success, false otherwise.
+    # ==== Returns
+    # _boolean_:: True on success, false otherwise.
     def simulate_previous_minutes
       # simulate just when game has not finished status
       if !@game.finished
@@ -132,7 +135,11 @@ module GameSimulationHelper
     # controls (e.g. whether game is started and this minute was already
     # simulated) so be careful with using it.
     # 
-    # returns: result of simulation (true/false on error)
+    # ==== Attributes
+    # _minute_:: minute which should be simulated.
+    #
+    # ==== Returns
+    # _boolean_:: Result of simulation (true/false on error).
     def simulate_minute(minute)
       res = true
 
@@ -155,9 +162,15 @@ module GameSimulationHelper
     
     # Simulates goals in game for specified minute. All events and game changes
     # are saved within this function.
+    #
+    # ==== Attributes
+    # _team_id_:: id of team for which are goals simulated. 1 for home, 2 for
+    # away.
+    # _minute_:: minute for which are goals simulated and if some team scores
+    # goal, its event has this minute.
     def simulate_goals(team_id, minute)
       goal_coef = rand(@@COEF_GOAL + (@@COEF_GOAL_AWAY_DISADVANTAGE * (team_id - 1)))
-
+      
       if (goal_coef == 0)
         is_penalty = rand(@@COEF_PENALTY) == 0
 
@@ -188,6 +201,12 @@ module GameSimulationHelper
     
     # Simulates yellow cards in game for specified minute. All events and game
     # changes are saved within this function.
+    #
+    # ==== Attributes
+    # _team_id_:: id of team for which are cards simulated. 1 for home, 2 for
+    # away.
+    # _minute_:: minute for which are cards simulated and if some player
+    # receives card, its event has this minute.
     def simulate_yellow_cards(team_id, minute)
       booked = rand(@@COEF_YELLOW_CARD) == 0
 
@@ -233,6 +252,12 @@ module GameSimulationHelper
     
     # Simulates red cards in game for specified minute. All events and game
     # changes are saved within this function.
+    #
+    # ==== Attributes
+    # _team_id_:: id of team for which are cards simulated. 1 for home, 2 for
+    # away.
+    # _minute_:: minute for which are cards simulated and if some player
+    # receives card, its event has this minute.
     def simulate_red_cards(team_id, minute)
       booked = rand(@@COEF_RED_CARD) == 0
       
@@ -265,6 +290,12 @@ module GameSimulationHelper
     
     # Simulates injuries in game for specified minute. All events and game
     # changes are saved within this function.
+    #
+    # ==== Attributes
+    # _team_id_:: id of team for which are injuries simulated. 1 for home, 2 for
+    # away.
+    # _minute_:: minute for which are cards simulated and if some player
+    # injures, its event has this minute.
     def simulate_injuries(team_id, minute)
       injured = rand(@@COEF_INJURY) == 0
       
@@ -296,6 +327,13 @@ module GameSimulationHelper
     end
     
     # Forfeits game.
+    # 
+    # ==== Attributes
+    # _winner_team_id_:: id of team which wins by forfeit. When nill, game is
+    # tied (both teams have score 0). Nil by default.
+    #
+    # ==== Returns
+    # _boolean_:: Status of updating game (true/false depending on save result).
     def forfeit(winner_team_id = nil)
       if winner_team_id == nil
         @game.score_home = 0;
