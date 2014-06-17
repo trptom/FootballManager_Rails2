@@ -7,6 +7,7 @@ class CreateGamePlayers < ActiveRecord::Migration
       t.integer :position,    :null => true, :default => nil
       t.integer :min_on,      :null => true, :default => nil
       t.integer :min_off,     :null => true, :default => nil
+      t.integer :reason_off,  :null => true, :default => nil
 
       t.timestamps
     end

@@ -23,7 +23,7 @@
         <tr class="score">
           <td colspan="2">
             <% if @game.started %>
-              <%= @game.score_home %>:<%= @game.score_away %>
+              <%= @game.score_home %>:<%= @game.score_away %><%= @result_type %>
             <% else %>
               -:-
             <% end %>
@@ -43,6 +43,9 @@
                 <%= image_tag asset_path(File.join(FOLDER_GAME_EVENTS, "#{@events[:home][a].event_type}.png")) %>
                 <%= @events[:home][a].minute %>.
                 <%= link_to @events[:home][a].player.get_name, @events[:home][a].player %>
+                <% if @events[:home][a].event_type == GAME_EVENT[:penalty_yes] %>
+                  (<%= I18n.t "messages.games.show.penalty" %>)
+                <% end %>
               <% end %>
             </td>
             <td>

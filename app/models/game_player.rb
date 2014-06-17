@@ -1,7 +1,8 @@
 class GamePlayer < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
-  attr_accessible :min_off, :min_on, :position, :team, :game, :game_id, :player, :player_id
+  attr_accessible :min_off, :min_on, :position, :team, :game, :game_id,
+    :player, :player_id, :reason_off
   
   scope :on_pitch, -> {
     where("(min_on IS NOT NULL)AND(min_off IS NULL)")

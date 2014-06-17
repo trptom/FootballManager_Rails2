@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20140606110100) do
     t.integer  "position"
     t.integer  "min_on"
     t.integer  "min_off"
+    t.integer  "reason_off"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

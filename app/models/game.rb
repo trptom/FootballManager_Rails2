@@ -1,4 +1,4 @@
-include GamesHelper 
+include GameSimulationHelper
 
 class Game < ActiveRecord::Base
   attr_accessible :attendance, :finished, :min, :result_type,
@@ -61,52 +61,24 @@ class Game < ActiveRecord::Base
     return ((DateTime.now.to_i - start.to_i) / 60).ceil
   end
   
-  # Prepares game data before it starts. Score is reset to 0 and default tactics
-  # from currently selected tactics is created. This function has no
-  # restrictions and controls (e.g. whether game  was already prepared) so be
-  # careful with using it.
-  # 
-  # returns: result of preparation (true/false on error)
-  def prepare
-    GamesHelper::prepare(self)
-  end
-  
   # Simulates game until now. If game was in past (curent min > 90), it is
   # finished.
   # 
   # returns: result of simulation (true/false on error)
   def simulate
     result = true
+    simulator = GameSimulator.new(self)
     
     # if game should be started (and hasnt been yet), do it!
-    if (start <= DateTime.now && !self.started)
-      result = self.prepare && result
+    if (self.start <= DateTime.now && !self.started)
+      result = simulator.prepare && result
     end
     
     # When game already started, simulate all non-simulated minutes
     if self.started
-      result = GamesHelper::simulate_previous_minutes(self) && result
+      result = simulator.simulate_previous_minutes && result
     end
     
     return result
-  end
-  
-  # Simulates one minute of game. This simulation has no restrictions and
-  # controls (e.g. whether game is started and this minute was already
-  # simulated) so be careful with using it.
-  # 
-  # returns: result of simulation (true/false on error)
-  def simulate_minute(minute)
-    res = true
-    
-    for team_id in 1..2
-      # GOALS
-      res = GamesHelper::simulate_goals(self, team_id, minute) && res
-      
-      # YELLOW CARDS
-      res = GamesHelper::simulate_yellow_cards(self, team_id, minute) && res
-    end
-    
-    return res
   end
 end
