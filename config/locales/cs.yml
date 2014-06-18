@@ -43,6 +43,14 @@ cs:
       account_activated: Účet aktivován
       password_updated: Heslo změněno
       
+    user_sessions:
+      create:
+        banned: Uživatelský účet je zablokován.
+        succesfull: Přihlašování proběhlo úspěšně.
+        failed: Při přihlašování se vyskytla nečekaná chyba! Prosím, zkuste to znova.
+      destroy:
+        succesfull: Odhlašování proběhlo úspěšně.
+      
     login_form:
       title: Přihlášeni uživatele
       username: Uživatelské jméno

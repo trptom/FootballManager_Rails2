@@ -1,21 +1,23 @@
+# Controller for User actions.
 class UsersController < ApplicationController
-  def index
+  # Shows select team screen for +current_user+.
+  def select_team
+    @user = current_user
+    
+    @countries = Country.order(:shortcut)
+    @teams = Team.where("user_id IS NULL")
+  end
+  
+  # Updates team of +current_user+ to team passed as parameter. Should be called
+  # only when user has not any assigned team.
+  #
+  # ==== Required params
+  # _team_id_:: id of team which will be assigned to +current_user+. This team
+  #             can't have already assigned user.
+  def update_team
     
   end
-
-  def show
-    params[:id] = params[:id] ? params[:id] : (current_user ? current_user.id : nil)
-    @user = User.find_by_id(params[:id])
-    
-    if !@user
-      page_not_found
-    end
-    
-    @title_params = {
-      :username => @user.username
-    }
-  end
-
+  
   def edit
     @user = User.find(params[:id])
     

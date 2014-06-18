@@ -51,6 +51,13 @@ FMRails::Application.routes.draw do
   resources :players do
   end
   
+  resources :users do
+    collection do
+      get :select_team
+      post :update_team
+    end
+  end
+  
   get "oauths/oauth"
   get "oauths/callback"
   match "oauth/callback" => "oauths#callback"
