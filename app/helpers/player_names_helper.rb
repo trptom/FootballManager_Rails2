@@ -1,5 +1,6 @@
 # coding:utf-8
 
+# Helper module for working with player names.
 module PlayerNamesHelper
   
   # Deletes all records from database for specified country and fills database

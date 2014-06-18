@@ -1,4 +1,6 @@
+# Helper module used to simulating games.
 module GameSimulationHelper
+  
   # Class used within GameSimulator to store precounted values of team
   # strength, ...
   class TeamStrength

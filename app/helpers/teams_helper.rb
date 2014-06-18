@@ -1,6 +1,27 @@
 include PlayersHelper
 
+# Helper module for working with teams.
 module TeamsHelper
+  
+  # Adds players to team to match mimimum counts, specified in configuration
+  # (+TEAM_REFILL_PLAYERS_TO+ constant). Players are created depending on
+  # current squad. E.g. when team already has at least n (usually 2)
+  # goalkeepers, no more goalkeepers are added and players for different
+  # positions are created. Same for defenders, midfielders and attackers. Counts
+  # for all od position types are defined in +TEAM_REFILL_PLAYERS_POS_TO+
+  # constant.
+  #
+  # ==== Params
+  # _team_:: team to which should be players added.
+  #
+  # ==== See
+  # PlayersHelper (PlayersHelper functions for generating players are used in
+  # this method), 
+  # PlayersHelper#generate_goalkeeper, 
+  # PlayersHelper#generate_defender, 
+  # PlayersHelper#generate_midfielder, 
+  # PlayersHelper#generate_attacker, 
+  # PlayersHelper#generate_random
   def fill_squad(team)
     # TODO doplnovani soupisky
     

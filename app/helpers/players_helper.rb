@@ -1,8 +1,17 @@
+# Helper module for working with players.
 module PlayersHelper
   ##############################################################################
   # GUESSING (auto generating of attributes)
   ##############################################################################
   
+  # Automatically generates country for new player in _team_. Usually it is
+  # team's country but sometimes it can be different.
+  #
+  # ==== Params
+  # _team_:: team for which player will be created.
+  #
+  # ==== Returns
+  # _Country_:: country for player.
   def guess_country(team)
     if (rand(100) > 95) # small chance to have foreign player
       return Country.offset(rand(Country.count)).first
@@ -11,6 +20,23 @@ module PlayersHelper
     end
   end
   
+  # Automatically generates name of player from PlayerName configuration
+  # in database for specific country.
+  #
+  # ==== Params
+  # _country_:: country associated with name (different names for czechs,
+  #             germans, ...).
+  #
+  # ==== Returns
+  # _Hash_:: hash containing parts of name:
+  #          _first_name_:: First name of player (e.g. Karel for CZE). Cant be
+  #                         nil.
+  #          _second_name_:: Second name of player (e.g. Matous for CZE). Can be
+  #                          (and usually is) nil.
+  #          _last_name_:: Last name of player (e.g. Novak for CZE). Cant be
+  #                        nil.
+  #          _pseudonym_:: pseudonym of player (e.g. Marzihno for BRA). Can be
+  #                        (and usually is) nil.
   def guess_name(country)
     first_names = nil
     last_names = nil
@@ -29,10 +55,26 @@ module PlayersHelper
     }
   end
   
+  # Automatically generates age for new player. Currently is just for young
+  # players (coming from youth) in range 17..20.
+  #
+  # ==== Returns
+  # _Integer_:: age for new pleyer.
   def guess_age()
     return rand(17..20)
   end
   
+  # Automatically generates position strength for new player (GK/D/M/A;
+  # range 1-100). There is always one prefferred position which is automatically
+  # chosen depending on +TEAM_REFILL_PLAYERS_POS_TO+ configuration. It means
+  # that there will be created more defenders than goalkeepers and so on.
+  #
+  # ==== Returns
+  # _Hash_:: hash of position strengths, containing following fields:
+  #          +PLAYER_POSITION_GK+:: goalkeeping strength (1-100).
+  #          +PLAYER_POSITION_D+:: defending strength (1-100).
+  #          +PLAYER_POSITION_M+:: midfielding strength (1-100).
+  #          +PLAYER_POSITION_S+:: attacking strength (1-100).
   def guess_pos()
     sum = TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_GK]
         + TEAM_REFILL_PLAYERS_POS_TO[PLAYER_POSITION_D]

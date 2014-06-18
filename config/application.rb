@@ -9,6 +9,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+# Basic application module.
 module FMRails
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
