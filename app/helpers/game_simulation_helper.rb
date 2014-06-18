@@ -53,7 +53,7 @@ module GameSimulationHelper
     # Simple initializator for specific game.
     # 
     # ==== Attributes
-    # +game+:: game associated with this simulator.
+    # _game_:: game associated with this simulator.
     def initialize(game)
       @game = game
     end
@@ -165,9 +165,10 @@ module GameSimulationHelper
     #
     # ==== Attributes
     # _team_id_:: id of team for which are goals simulated. 1 for home, 2 for
-    # away.
+    #             away.
     # _minute_:: minute for which are goals simulated and if some team scores
-    # goal, its event has this minute.
+    #            goal, its event has this minute.
+    private
     def simulate_goals(team_id, minute)
       goal_coef = rand(@@COEF_GOAL + (@@COEF_GOAL_AWAY_DISADVANTAGE * (team_id - 1)))
       
@@ -204,9 +205,10 @@ module GameSimulationHelper
     #
     # ==== Attributes
     # _team_id_:: id of team for which are cards simulated. 1 for home, 2 for
-    # away.
+    #             away.
     # _minute_:: minute for which are cards simulated and if some player
-    # receives card, its event has this minute.
+    #            receives card, its event has this minute.
+    private
     def simulate_yellow_cards(team_id, minute)
       booked = rand(@@COEF_YELLOW_CARD) == 0
 
@@ -255,9 +257,10 @@ module GameSimulationHelper
     #
     # ==== Attributes
     # _team_id_:: id of team for which are cards simulated. 1 for home, 2 for
-    # away.
+    #             away.
     # _minute_:: minute for which are cards simulated and if some player
-    # receives card, its event has this minute.
+    #            receives card, its event has this minute.
+    private
     def simulate_red_cards(team_id, minute)
       booked = rand(@@COEF_RED_CARD) == 0
       
@@ -293,9 +296,10 @@ module GameSimulationHelper
     #
     # ==== Attributes
     # _team_id_:: id of team for which are injuries simulated. 1 for home, 2 for
-    # away.
+    #             away.
     # _minute_:: minute for which are cards simulated and if some player
-    # injures, its event has this minute.
+    #            injures, its event has this minute.
+    private
     def simulate_injuries(team_id, minute)
       injured = rand(@@COEF_INJURY) == 0
       
@@ -330,7 +334,7 @@ module GameSimulationHelper
     # 
     # ==== Attributes
     # _winner_team_id_:: id of team which wins by forfeit. When nill, game is
-    # tied (both teams have score 0). Nil by default.
+    #                    tied (both teams have score 0). Nil by default.
     #
     # ==== Returns
     # _boolean_:: Status of updating game (true/false depending on save result).
@@ -365,7 +369,8 @@ module GameSimulationHelper
     # Checks whether both teams matches all conditions. If not, game is
     # forfeited and finished.
     #
-    # returns: false if game was forfeited, true otherwise.
+    # ==== Returns
+    # _boolean_:: false if game was forfeited, true otherwise.
     private
     def check_and_forfeit
       status = []
@@ -395,7 +400,12 @@ module GameSimulationHelper
     
     # Checks whether team has goalkeeper within its squad.
     #
-    # returns: true when goalkeeper is presented, false otherwise.
+    # ==== Attributes
+    # _team_id_:: id of team for which should be goalkeepers count checked.
+    #             1 for home, 2 for away.
+    #
+    # ==== Returns
+    # _boolean_:: true when goalkeeper is presented, false otherwise.
     private
     def check_goalkeeper_presence(team_id)
       return @game.game_players.on_pitch.where(:team => team_id).goalkeepers.count > 0
@@ -403,7 +413,12 @@ module GameSimulationHelper
     
     # Checks whether team has at least @@MIN_PLAYERS players.
     #
-    # returns: true when team has enough players, false otherwise.
+    # ==== Attributes
+    # _team_id_:: id of team for which should be players count checked. 1 for
+    #             home, 2 for away.
+    #
+    # ==== Returns
+    # _boolean_:: true when team has enough players, false otherwise.
     private
     def check_players_count(team_id)
       return @game.game_players.on_pitch.where(:team => team_id).count >= @@MIN_PLAYERS
@@ -425,7 +440,8 @@ module GameSimulationHelper
     # Updates game attributes to be equal with started game. Game is aldo saved
     # and result of save function is returned!
     #
-    # returns: true on success, false otherwise.
+    # ==== Returns
+    # _boolean_:: true on success, false otherwise.
     private
     def update_game_atts_to_started
       @game.started = true
@@ -440,9 +456,17 @@ module GameSimulationHelper
     # Creates new tactics for specified team in game. Tactics is copy of
     # team_tactics param (or default tactics when team_tactics is nil).
     #
-    # returns: true on success, false otherwise.
+    # ==== Attributes
+    # _team_id_:: id of team for which should be tectics simulated. 1 for home,
+    #             2 for away.
+    # _team_tactics_:: tactics from which is new TeamTactics derrived. When
+    #                  +nil+, default tactics is used (depending on default
+    #                  game tactics configuration).
+    #
+    # ==== Returns
+    # _boolean_:: true on success, false otherwise.
     private
-    def create_team_tactics(team_id, team_tactics)
+    def create_team_tactics(team_id, team_tactics = nil)
       if team_tactics != nil
         return GameTactics.new(
           :game_id => @game.id,
@@ -468,9 +492,20 @@ module GameSimulationHelper
     # no tactics is created for specified team, default tactics is used
     # (counted). This us useful mainly for teams without manager.
     #
-    # returns: true on success, false otherwise.
+    # ==== Attributes
+    # _team_:: instance of Team vrom which should be players taken when tactics
+    #          is not presented.
+    # _team_id_:: id of team for which should be GamePlayers created. 1 for
+    #             home, 2 for away.
+    # _tactics_:: tactics is used to set up correct player positions. Should be
+    #             +nil+ or instance of Tactics. When +nil+, default lineup is
+    #             created depending on squad of _team_ and default lineup
+    #             configuration.
+    #
+    # ==== Returns
+    # _boolean_:: true on success, false otherwise.
     private
-    def create_game_players(team, team_id, tactics)
+    def create_game_players(team, team_id, tactics = nil)
       res = true
 
       if tactics == nil
@@ -524,9 +559,12 @@ module GameSimulationHelper
     # Gets random player who scored goal for specified team. Most often its
     # striker. Its never goalkeeper.
     #
-    # team_id: id of team (1=home, 2=away).
+    # ==== Attributes
+    # _team_id_:: id of team from which should be scorer. 1 for home, 2 for
+    #             away.
     #
-    # returns: GamePlayer instance of player, who scored goal.
+    # ==== Returns
+    # _GamePlayer_:: instance of player, who scored goal.
     private
     def get_scorer(team_id)
       players = nil
@@ -555,9 +593,12 @@ module GameSimulationHelper
 
     # Counts penalty executor based on squad attributes and tactics settings.
     #
-    # team_id: id of team (1=home, 2=away).
+    # ==== Attributes
+    # _team_id_:: id of team from which should be player. 1 for home, 2 for
+    #             away.
     #
-    # returns: GamePlayer instance of player, who should be penalty executor.
+    # ==== Returns
+    # _GamePlayer_:: instance of player, who should be penalty executor.
     private
     def get_penalty_executor(team_id)
       # TODO executor of penalty should be dependent on tactics
@@ -566,12 +607,14 @@ module GameSimulationHelper
 
     # Counts if shot of shooter was successfull.
     #
-    # shooter: shooter object (instance of GamePlayer).
-    # goalkeeper: goalgeeper object (instance of GamePlayer).
-    # shot_coef: coefficient of shooting position 1-100 (100 is best from which
-    #            all shooters should be in most of cases successfull).
+    # ==== Attributes
+    # _shooter_:: shooter object (instance of GamePlayer).
+    # _goalkeeper_:: goalgeeper object (instance of GamePlayer).
+    # _shot_coef_:: coefficient of shooting position 1-100 (100 is best from
+    #               which all shooters should be in most of cases successfull).
     #
-    # returns: true if shooter scored goal, false otherwise.
+    # ==== Returns
+    # _boolean_:: true if shooter scored goal, false otherwise.
     private
     def is_shot_successfull(shooter, goalkeeper, shot_coef)
       # TODO is_shot_successfull behaviour
@@ -582,10 +625,12 @@ module GameSimulationHelper
     # attributes. Result is random-based so it can have different results
     # for same data.
     #
-    # shooter: instance of GamePlayer.
-    # goalkeeper: instance of GamePlayer.
+    # ==== Attributes
+    # _shooter_:: instance of GamePlayer.
+    # _goalkeeper_:: instance of GamePlayer.
     #
-    # returns: true when shooter was successfull (scored goal), false otherwise.
+    # ==== Returns
+    # _boolean_:: true when shooter was successfull (scored goal), false otherwise.
     private
     def is_penalty_successfull(shooter, goalkeeper)
       # TODO toto neni FM - atributy muzou byt vyssi nez 20, je treba to prekopat
@@ -626,7 +671,14 @@ module GameSimulationHelper
     # Incerases goal of specified team in game. When minute <= 45, increases
     # also halftime score. Game is saved afterwards.
     #
-    # returns: true on success, false otherwise.
+    # ==== Attributes
+    # _team_id_:: id of team for which should be goal increased. 1 for home,
+    #             2 for away.
+    # _minute_:: minute when goal was scored - when <= 45 also halftime score is
+    #            increased.
+    #
+    # ==== Returns
+    # _boolean_:: true on success, false otherwise.
     private
     def increase_goal(team_id, minute)
       if team_id == 1
@@ -648,9 +700,11 @@ module GameSimulationHelper
 
     # Determines whether player was already booked or not.
     #
-    # player: instance of GamePlayer.
+    # ==== Attributes
+    # _player_:: instance of GamePlayer.
     #
-    # returns: true if player has already been booked, false otherwise.
+    # ==== Returns
+    # _boolean_:: true if player has already been booked, false otherwise.
     private
     def has_card(player)
       return @game.game_events.where(
