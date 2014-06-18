@@ -366,6 +366,7 @@ module GameSimulationHelper
     # forfeited and finished.
     #
     # returns: false if game was forfeited, true otherwise.
+    private
     def check_and_forfeit
       status = []
       for team_id in 1..2
@@ -395,6 +396,7 @@ module GameSimulationHelper
     # Checks whether team has goalkeeper within its squad.
     #
     # returns: true when goalkeeper is presented, false otherwise.
+    private
     def check_goalkeeper_presence(team_id)
       return @game.game_players.on_pitch.where(:team => team_id).goalkeepers.count > 0
     end
@@ -402,6 +404,7 @@ module GameSimulationHelper
     # Checks whether team has at least @@MIN_PLAYERS players.
     #
     # returns: true when team has enough players, false otherwise.
+    private
     def check_players_count(team_id)
       return @game.game_players.on_pitch.where(:team => team_id).count >= @@MIN_PLAYERS
     end
@@ -411,6 +414,7 @@ module GameSimulationHelper
     # precounted strengths so if you change squads, you should also recount
     # strangths (call this function). Otherwise you will not affect match
     # by change you made until <i>count_strengths</i> is called.
+    private
     def count_strengths
       @strength = {
         :home => TeamStrength.new(@game, 1),
@@ -422,6 +426,7 @@ module GameSimulationHelper
     # and result of save function is returned!
     #
     # returns: true on success, false otherwise.
+    private
     def update_game_atts_to_started
       @game.started = true
       @game.score_home = 0
@@ -436,6 +441,7 @@ module GameSimulationHelper
     # team_tactics param (or default tactics when team_tactics is nil).
     #
     # returns: true on success, false otherwise.
+    private
     def create_team_tactics(team_id, team_tactics)
       if team_tactics != nil
         return GameTactics.new(
@@ -463,6 +469,7 @@ module GameSimulationHelper
     # (counted). This us useful mainly for teams without manager.
     #
     # returns: true on success, false otherwise.
+    private
     def create_game_players(team, team_id, tactics)
       res = true
 
@@ -520,6 +527,7 @@ module GameSimulationHelper
     # team_id: id of team (1=home, 2=away).
     #
     # returns: GamePlayer instance of player, who scored goal.
+    private
     def get_scorer(team_id)
       players = nil
 
@@ -550,6 +558,7 @@ module GameSimulationHelper
     # team_id: id of team (1=home, 2=away).
     #
     # returns: GamePlayer instance of player, who should be penalty executor.
+    private
     def get_penalty_executor(team_id)
       # TODO executor of penalty should be dependent on tactics
       return self.get_scorer(team_id)
@@ -563,6 +572,7 @@ module GameSimulationHelper
     #            all shooters should be in most of cases successfull).
     #
     # returns: true if shooter scored goal, false otherwise.
+    private
     def is_shot_successfull(shooter, goalkeeper, shot_coef)
       # TODO is_shot_successfull behaviour
       return true;
@@ -576,6 +586,7 @@ module GameSimulationHelper
     # goalkeeper: instance of GamePlayer.
     #
     # returns: true when shooter was successfull (scored goal), false otherwise.
+    private
     def is_penalty_successfull(shooter, goalkeeper)
       # TODO toto neni FM - atributy muzou byt vyssi nez 20, je treba to prekopat
       gk_skill = (goalkeeper.player.speed * goalkeeper.player.gk) / 200.0
@@ -616,6 +627,7 @@ module GameSimulationHelper
     # also halftime score. Game is saved afterwards.
     #
     # returns: true on success, false otherwise.
+    private
     def increase_goal(team_id, minute)
       if team_id == 1
         @game.score_home = @game.score_home + 1
@@ -639,6 +651,7 @@ module GameSimulationHelper
     # player: instance of GamePlayer.
     #
     # returns: true if player has already been booked, false otherwise.
+    private
     def has_card(player)
       return @game.game_events.where(
         :player_id => player.player.id,
