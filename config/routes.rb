@@ -41,6 +41,7 @@ FMRails::Application.routes.draw do
   resources :player_names do
     collection do
       get :stats
+      get :update_names
     end
   end
   
